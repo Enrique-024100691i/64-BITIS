@@ -1,263 +1,373 @@
-import React from 'react';
-import { 
-  Car, 
-  Database, 
-  Users, 
-  ShoppingCart, 
-  FileText, 
-  Briefcase, 
-  Wrench, 
-  Tag, 
-  Calendar,
-  Settings,
-  ShieldCheck,
-  TrendingUp
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Modelo Conceptual - Intrasev Motors</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        uacBlue: '#0f2c59',
+                        uacGold: '#f39c12',
+                        darkBg: '#0b1120',
+                        cardBg: '#1e293b'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0b1120;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .pk-badge {
+            background-color: #f39c12;
+            color: #000;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+        .fk-badge {
+            background-color: #3b82f6;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+        .timeline-line {
+            width: 4px;
+            background: linear-gradient(to bottom, #f39c12, #3b82f6);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 100%;
+            z-index: 0;
+        }
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 20px;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
 
-export default function App() {
-  return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans pb-12">
-      {/* Encabezado */}
-      <header className="bg-blue-900 text-white py-12 px-6 shadow-lg relative overflow-hidden">
-        <div className="absolute top-0 right-0 opacity-10">
-          <Database size={300} className="transform translate-x-16 -translate-y-16" />
+    <!-- Header Section -->
+    <header class="bg-uacBlue border-b-4 border-uacGold py-16 px-6 relative overflow-hidden">
+        <div class="absolute opacity-10 top-0 left-0 w-full h-full">
+            <i class="fa-solid fa-database text-9xl absolute -top-10 -left-10 transform rotate-12"></i>
+            <i class="fa-solid fa-car text-9xl absolute bottom-10 -right-10 transform -rotate-12"></i>
         </div>
-        <div className="max-w-4xl mx-auto relative z-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
-            Modelo Conceptual de Base de Datos
-          </h1>
-          <h2 className="text-2xl md:text-3xl font-light text-blue-200 flex items-center justify-center gap-3">
-            <Car size={32} /> Intrasev Motors
-          </h2>
-          <p className="mt-6 text-blue-100 max-w-2xl mx-auto text-lg">
-            Una arquitectura relacional desarrollada para gestionar el inventario, ventas y clientes de una empresa de repuestos automotrices de alta gama en Cusco, Perú.
-          </p>
-        </div>
-      </header>
-
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 space-y-16">
-        
-        {/* Sección 1: El Contexto */}
-        <section className="bg-white rounded-2xl shadow-md p-8 border-l-8 border-orange-500 hover:shadow-lg transition-shadow">
-          <div className="flex flex-col md:flex-row gap-8 items-center">
-            <div className="flex-1">
-              <h3 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                <Settings className="text-orange-500" /> El Contexto
-              </h3>
-              <p className="text-slate-600 mb-4 leading-relaxed text-lg">
-                <strong>Intrasev Motors</strong> es especialista en el suministro de motores y repuestos para vehículos de lujo (Audi, BMW, Mercedes-Benz). Con el aumento de las transacciones y el alto valor del inventario, la gestión manual se volvió insostenible.
-              </p>
-              <p className="text-slate-600 leading-relaxed text-lg">
-                <strong className="text-slate-800">El Desafío:</strong> Crear un sistema estructurado para vincular de manera exacta el catálogo de productos premium con las ventas realizadas, los clientes y los empleados responsables.
-              </p>
-            </div>
-            <div className="hidden md:flex flex-shrink-0 w-48 h-48 bg-blue-50 rounded-full items-center justify-center border-4 border-blue-100 shadow-inner">
-              <Wrench size={80} className="text-blue-800" />
-            </div>
-          </div>
-        </section>
-
-        {/* Sección 2: Requisitos de Negocio */}
-        <section>
-          <h3 className="text-3xl font-bold text-center text-slate-800 mb-10">
-            Requerimientos del Negocio
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <ReqCard 
-              icon={<Settings className="text-white" size={24} />} 
-              title="REQ-01: Inventario" 
-              desc="Almacenar el catálogo de motores y repuestos con categoría, marca, precio y control de stock en tiempo real."
-              color="bg-blue-600"
-            />
-            <ReqCard 
-              icon={<Users className="text-white" size={24} />} 
-              title="REQ-02: Clientes" 
-              desc="Registro de información fiscal y de contacto (DNI/RUC, Nombre, Teléfono, Dirección) para la facturación."
-              color="bg-emerald-600"
-            />
-            <ReqCard 
-              icon={<Briefcase className="text-white" size={24} />} 
-              title="REQ-03: Empleados" 
-              desc="Trazabilidad de los asesores de ventas en cada transacción para medir su rendimiento y eficiencia."
-              color="bg-purple-600"
-            />
-            <ReqCard 
-              icon={<ShoppingCart className="text-white" size={24} />} 
-              title="REQ-04: Ventas y Detalles" 
-              desc="Registro de la venta general y desglose de los múltiples productos adquiridos generando subtotales."
-              color="bg-orange-500"
-            />
-            <ReqCard 
-              icon={<ShieldCheck className="text-white" size={24} />} 
-              title="REQ-05: Reglas de Negocio" 
-              desc="El sistema está blindado para no permitir el registro de ventas con montos totales en cero o negativos."
-              color="bg-red-500"
-            />
-          </div>
-        </section>
-
-        {/* Sección 3: Entidades y Atributos */}
-        <section className="bg-slate-900 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-slate-900 to-slate-800 z-0"></div>
-          
-          <div className="relative z-10 text-center mb-10">
-            <h3 className="text-3xl font-bold mb-3 flex items-center justify-center gap-3">
-              <Database className="text-blue-400" size={32} /> Entidades y Atributos
-            </h3>
-            <p className="text-slate-400">Estructura de las tablas diseñadas para eliminar la redundancia</p>
-          </div>
-
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            <EntityCard title="Cliente" icon={<Users size={20} />} pk="IdCliente">
-              <Attr name="Razon_Social_Nombre" type="Texto" />
-              <Attr name="DNI_RUC" type="Texto" />
-              <Attr name="Telefono" type="Número" />
-              <Attr name="Correo" type="Texto" />
-              <Attr name="Direccion" type="Texto" />
-            </EntityCard>
-
-            <EntityCard title="Empleado" icon={<Briefcase size={20} />} pk="IdEmpleado">
-              <Attr name="Nombre_Completo" type="Texto" />
-              <Attr name="Cargo" type="Texto" />
-              <Attr name="Telefono" type="Texto" />
-            </EntityCard>
-
-            <EntityCard title="Producto" icon={<Tag size={20} />} pk="IdProducto">
-              <Attr name="Nombre_Producto" type="Texto" />
-              <Attr name="Categoria" type="Texto" />
-              <Attr name="Marca_Compatible" type="Texto" />
-              <Attr name="Precio" type="Decimal" />
-              <Attr name="Stock" type="Número" />
-            </EntityCard>
-
-            <EntityCard title="Venta" icon={<Calendar size={20} />} pk="IdVenta">
-              <Attr name="Fecha_Venta" type="Fecha" />
-              <Attr name="Total" type="Decimal" />
-              <Attr name="IdCliente" type="FK (Num)" isFk />
-              <Attr name="IdEmpleado" type="FK (Num)" isFk />
-            </EntityCard>
-
-            <EntityCard title="Detalle_Venta" icon={<FileText size={20} />} pk="IdDetalleVenta" className="xl:col-span-2">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
-                <div>
-                  <Attr name="IdVenta" type="FK (Num)" isFk />
-                  <Attr name="IdProducto" type="FK (Num)" isFk />
-                </div>
-                <div>
-                  <Attr name="Cantidad" type="Número" />
-                  <Attr name="PrecioUnitario" type="Decimal" />
-                  <Attr name="Subtotal" type="Decimal" />
-                </div>
-              </div>
-            </EntityCard>
-          </div>
-        </section>
-
-        {/* Sección 4: Relaciones y Cardinalidad */}
-        <section>
-          <h3 className="text-3xl font-bold text-center text-slate-800 mb-10">
-            Relaciones y Cardinalidades (1:N)
-          </h3>
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4">
-            <RelRow 
-              from="Cliente" to="Venta" 
-              desc="Un cliente puede realizar múltiples compras a lo largo del tiempo, pero una factura pertenece únicamente a un solo cliente."
-            />
-            <RelRow 
-              from="Empleado" to="Venta" 
-              desc="Un asesor puede gestionar muchas ventas, pero una venta en particular es registrada por un solo empleado."
-            />
-            <RelRow 
-              from="Venta" to="Detalle_Venta" 
-              desc="Una factura general puede contener múltiples líneas de detalle (varios productos), pero un detalle pertenece exclusivamente a esa factura."
-            />
-            <RelRow 
-              from="Producto" to="Detalle_Venta" 
-              desc="Un producto (ej: Motor BMW) puede ser vendido muchas veces en diferentes detalles, pero una línea de detalle se refiere a un solo producto."
-            />
+        <div class="max-w-5xl mx-auto relative z-10 text-center">
+            <h3 class="text-uacGold font-heading font-semibold tracking-widest uppercase mb-2">Universidad Andina del Cusco</h3>
+            <h1 class="text-4xl md:text-6xl font-heading font-bold text-white mb-4 leading-tight">Modelo Conceptual de Datos</h1>
+            <p class="text-xl md:text-2xl text-blue-200 font-light mb-8">Caso de Estudio: <span class="font-bold text-white">Intrasev Motors</span></p>
             
-            <div className="mt-8 p-5 bg-blue-50 border-l-4 border-blue-600 rounded-r-lg shadow-sm flex gap-4 items-start">
-              <ShieldCheck className="text-blue-600 shrink-0 mt-1" size={24} />
-              <div>
-                <h4 className="font-bold text-blue-900 mb-1">Nota de Diseño de Base de Datos</h4>
-                <p className="text-blue-800 text-sm leading-relaxed">
-                  La inclusión de la entidad puente <strong className="font-mono bg-blue-100 px-1 rounded">Detalle_Venta</strong> rompe exitosamente la relación de Muchos-a-Muchos (N:M) que existiría de forma natural entre "Venta" y "Producto", logrando normalizar la base de datos para evitar anomalías y redundancias.
-                </p>
-              </div>
+            <div class="inline-block bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 text-left mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div>
+                        <p class="text-gray-400 uppercase text-xs">Docente</p>
+                        <p class="font-semibold text-white">Hugo Espetia Huamanga</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 uppercase text-xs">Grupo</p>
+                        <p class="font-semibold text-uacGold">64 bits</p>
+                    </div>
+                    <div class="md:col-span-2">
+                        <p class="text-gray-400 uppercase text-xs mb-1">Equipo de Desarrollo</p>
+                        <ul class="text-white list-disc list-inside">
+                            <li>Triveños Llaccta Richard <span class="text-uacGold text-xs ml-1">(Scrum Master)</span></li>
+                            <li>Yehan Carlos Surcos Alvarez</li>
+                            <li>Mariño Chauca Joseph Beder</li>
+                            <li>Zavaleta Fuentes Paolo</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-          </div>
-        </section>
+        </div>
+    </header>
 
-        {/* Sección 5: Conclusión */}
-        <section className="bg-gradient-to-r from-blue-900 to-blue-700 rounded-2xl p-10 text-white shadow-2xl flex flex-col items-center text-center">
-          <TrendingUp size={56} className="text-orange-400 mb-6 drop-shadow-md" />
-          <h3 className="text-3xl font-extrabold mb-6">Conclusión del Proyecto</h3>
-          <p className="max-w-4xl leading-relaxed text-blue-100 text-lg">
-            El modelo conceptual centraliza y organiza eficientemente la información crítica de la empresa. Al establecer una trazabilidad estructurada entre clientes, ventas y asesores, el sistema previene rupturas de stock, facilita el análisis del historial de compras y sienta unas bases tecnológicas sólidas y altamente escalables. Esto prepara a <strong>Intrasev Motors</strong> para su futura transformación digital (como un sistema de facturación electrónica o e-commerce).
-          </p>
-        </section>
+    <!-- Context Section -->
+    <section class="py-16 px-6 max-w-5xl mx-auto reveal">
+        <div class="flex flex-col md:flex-row gap-8 items-center bg-cardBg rounded-2xl p-8 border border-slate-700 shadow-2xl">
+            <div class="w-full md:w-1/3 flex justify-center">
+                <div class="w-48 h-48 bg-uacBlue rounded-full flex items-center justify-center border-4 border-uacGold shadow-[0_0_30px_rgba(243,156,18,0.3)]">
+                    <i class="fa-solid fa-car-side text-6xl text-white"></i>
+                </div>
+            </div>
+            <div class="w-full md:w-2/3">
+                <h2 class="text-3xl font-heading font-bold text-uacGold mb-4"><i class="fa-solid fa-building mr-2"></i> El Contexto: Intrasev Motors</h2>
+                <p class="text-slate-300 leading-relaxed mb-4">
+                    Empresa del sector automotriz en Cusco especializada en la <strong>comercialización de motores y repuestos para vehículos de alta gama</strong> (Audi, BMW, Mercedes-Benz).
+                </p>
+                <div class="bg-slate-800 p-4 rounded-lg border border-slate-600">
+                    <h4 class="font-semibold text-white mb-2"><i class="fa-solid fa-triangle-exclamation text-red-400 mr-2"></i> El Desafío</h4>
+                    <p class="text-sm text-slate-400">
+                        Al manejar un inventario de alto valor, necesitan un sistema estructurado para vincular su catálogo premium con las ventas, clientes y empleados. La transformación digital es un paso obligatorio.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      </main>
-    </div>
-  );
-}
+    <!-- Requirements Section -->
+    <section class="py-16 px-6 bg-slate-900/50 relative border-t border-b border-slate-800">
+        <div class="max-w-5xl mx-auto text-center mb-12 reveal">
+            <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mb-4">Requerimientos del Negocio</h2>
+            <div class="h-1 w-24 bg-uacGold mx-auto rounded"></div>
+        </div>
 
-// Componentes Auxiliares
-const ReqCard = ({ icon, title, desc, color }) => (
-  <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-    <div className={w-14 h-14 rounded-xl flex items-center justify-center mb-5 shadow-sm ${color}}>
-      {icon}
-    </div>
-    <h4 className="font-bold text-slate-800 mb-3 text-lg">{title}</h4>
-    <p className="text-slate-600 text-sm leading-relaxed">{desc}</p>
-  </div>
-);
+        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- REQ 1 -->
+            <div class="bg-cardBg p-6 rounded-xl border-t-4 border-uacGold hover:-translate-y-2 transition-transform duration-300 shadow-lg reveal">
+                <div class="text-3xl text-uacGold mb-4"><i class="fa-solid fa-boxes-stacked"></i></div>
+                <h3 class="text-xl font-bold text-white mb-2">REQ-01: Inventario</h3>
+                <p class="text-slate-400 text-sm">Almacenar el catálogo de motores y repuestos (categoría, marcas compatibles, precios) y llevar un control estricto de stock.</p>
+            </div>
+            <!-- REQ 2 -->
+            <div class="bg-cardBg p-6 rounded-xl border-t-4 border-blue-500 hover:-translate-y-2 transition-transform duration-300 shadow-lg reveal delay-100">
+                <div class="text-3xl text-blue-500 mb-4"><i class="fa-solid fa-users"></i></div>
+                <h3 class="text-xl font-bold text-white mb-2">REQ-02: Clientes</h3>
+                <p class="text-slate-400 text-sm">Registrar información fiscal (DNI/RUC, Razón Social) y de contacto para procesos de facturación y fidelización.</p>
+            </div>
+            <!-- REQ 3 -->
+            <div class="bg-cardBg p-6 rounded-xl border-t-4 border-green-500 hover:-translate-y-2 transition-transform duration-300 shadow-lg reveal delay-200">
+                <div class="text-3xl text-green-500 mb-4"><i class="fa-solid fa-user-tie"></i></div>
+                <h3 class="text-xl font-bold text-white mb-2">REQ-03: Empleados</h3>
+                <p class="text-slate-400 text-sm">Trazabilidad en cada transacción para saber qué asesor comercial gestionó la venta y así medir su rendimiento.</p>
+            </div>
+            <!-- REQ 4 -->
+            <div class="bg-cardBg p-6 rounded-xl border-t-4 border-purple-500 hover:-translate-y-2 transition-transform duration-300 shadow-lg reveal">
+                <div class="text-3xl text-purple-500 mb-4"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                <h3 class="text-xl font-bold text-white mb-2">REQ-04: Control de Ventas</h3>
+                <p class="text-slate-400 text-sm">Registrar la factura general y permitir el desglose en múltiples productos (Detalle de Venta) con cantidades y subtotales.</p>
+            </div>
+            <!-- REQ 5 -->
+            <div class="bg-cardBg p-6 rounded-xl border-t-4 border-red-500 hover:-translate-y-2 transition-transform duration-300 shadow-lg md:col-span-2 lg:col-span-1 reveal delay-100">
+                <div class="text-3xl text-red-500 mb-4"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3 class="text-xl font-bold text-white mb-2">REQ-05: Reglas</h3>
+                <p class="text-slate-400 text-sm">El sistema tiene bloqueado el registro de ventas con montos totales en cero o en valores negativos para asegurar la integridad.</p>
+            </div>
+        </div>
+    </section>
 
-const EntityCard = ({ title, icon, pk, children, className = "" }) => (
-  <div className={bg-slate-800 border border-slate-700 rounded-xl overflow-hidden flex flex-col shadow-lg ${className}}>
-    <div className="bg-slate-950 p-4 border-b border-slate-700 flex justify-between items-center">
-      <h4 className="font-bold text-blue-400 flex items-center gap-2 uppercase tracking-wider text-sm">
-        {icon} {title}
-      </h4>
-    </div>
-    <div className="p-5 flex-1 bg-slate-800/50">
-      <div className="flex justify-between items-center border-b border-slate-600/50 pb-3 mb-3">
-        <span className="text-orange-400 font-mono text-sm flex items-center gap-2 font-semibold">
-          <span className="bg-orange-900/40 text-orange-300 text-xs px-2 py-0.5 rounded border border-orange-800/50">PK</span>
-          {pk}
-        </span>
-      </div>
-      <div className="space-y-2.5">
-        {children}
-      </div>
-    </div>
-  </div>
-);
+    <!-- Entities Section (Data Dictionary) -->
+    <section class="py-16 px-6 max-w-6xl mx-auto">
+        <div class="text-center mb-12 reveal">
+            <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mb-4">Entidades y Atributos</h2>
+            <p class="text-slate-400 max-w-2xl mx-auto">Estructura fundamental de la base de datos de Intrasev Motors, identificando claves primarias (PK) y foráneas (FK).</p>
+        </div>
 
-const Attr = ({ name, type, isFk }) => (
-  <div className="flex justify-between items-center text-sm font-mono group hover:bg-slate-700/30 p-1 -mx-1 rounded transition-colors">
-    <span className={flex items-center gap-2 ${isFk ? 'text-blue-300' : 'text-slate-300'}}>
-      {isFk && <span className="bg-blue-900/50 text-blue-300 text-[10px] px-1.5 py-0.5 rounded border border-blue-800/50">FK</span>}
-      {name}
-    </span>
-    <span className="text-slate-500 text-xs font-sans bg-slate-900/50 px-2 py-0.5 rounded">{type}</span>
-  </div>
-);
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Cliente -->
+            <div class="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden reveal">
+                <div class="bg-uacBlue py-3 px-4 font-bold flex justify-between items-center">
+                    <span><i class="fa-solid fa-user text-uacGold mr-2"></i> Cliente</span>
+                </div>
+                <ul class="p-4 space-y-2 font-mono text-sm text-slate-300">
+                    <li class="flex items-center"><i class="fa-solid fa-key text-uacGold w-5"></i> IdCliente <span class="pk-badge">PK</span></li>
+                    <li class="pl-5">Razon_Social_Nombre</li>
+                    <li class="pl-5">DNI_RUC</li>
+                    <li class="pl-5">Telefono</li>
+                    <li class="pl-5">Correo</li>
+                    <li class="pl-5">Direccion</li>
+                </ul>
+            </div>
 
-const RelRow = ({ from, to, desc }) => (
-  <div className="flex flex-col md:flex-row md:items-center gap-4 p-5 hover:bg-slate-50 rounded-xl transition-all border border-transparent hover:border-slate-200">
-    <div className="flex items-center justify-between md:justify-start gap-3 w-full md:w-64 shrink-0">
-      <span className="bg-blue-100 text-blue-800 px-4 py-1.5 rounded-lg text-sm font-bold shadow-sm">{from}</span>
-      <div className="flex items-center gap-2 text-slate-400">
-        <div className="h-px w-6 md:w-10 bg-slate-300"></div>
-        <span className="text-xs font-bold text-slate-500 tracking-widest">1:N</span>
-        <div className="h-px w-6 md:w-10 bg-slate-300"></div>
-        <div className="w-2 h-2 rounded-full bg-slate-400"></div>
-      </div>
-      <span className="bg-orange-100 text-orange-800 px-4 py-1.5 rounded-lg text-sm font-bold shadow-sm">{to}</span>
-    </div>
-    <div className="text-slate-600 text-sm md:text-base flex-1 mt-2 md:mt-0 md:pl-6 md:border-l md:border-slate-200">
-      {desc}
-    </div>
-  </div>
-);
+            <!-- Empleado -->
+            <div class="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden reveal delay-100">
+                <div class="bg-uacBlue py-3 px-4 font-bold flex justify-between items-center">
+                    <span><i class="fa-solid fa-id-card text-uacGold mr-2"></i> Empleado</span>
+                </div>
+                <ul class="p-4 space-y-2 font-mono text-sm text-slate-300">
+                    <li class="flex items-center"><i class="fa-solid fa-key text-uacGold w-5"></i> IdEmpleado <span class="pk-badge">PK</span></li>
+                    <li class="pl-5">Nombre_Completo</li>
+                    <li class="pl-5">Cargo</li>
+                    <li class="pl-5">Telefono</li>
+                </ul>
+            </div>
+
+            <!-- Producto -->
+            <div class="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden reveal delay-200">
+                <div class="bg-uacBlue py-3 px-4 font-bold flex justify-between items-center">
+                    <span><i class="fa-solid fa-gear text-uacGold mr-2"></i> Producto</span>
+                </div>
+                <ul class="p-4 space-y-2 font-mono text-sm text-slate-300">
+                    <li class="flex items-center"><i class="fa-solid fa-key text-uacGold w-5"></i> IdProducto <span class="pk-badge">PK</span></li>
+                    <li class="pl-5">Nombre_Producto</li>
+                    <li class="pl-5">Categoria</li>
+                    <li class="pl-5">Marca_Compatible</li>
+                    <li class="pl-5">Precio</li>
+                    <li class="pl-5">Stock</li>
+                </ul>
+            </div>
+
+            <!-- Venta -->
+            <div class="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden lg:col-start-1 lg:col-end-3 xl:col-span-1 xl:col-start-auto reveal">
+                <div class="bg-green-900/60 py-3 px-4 font-bold flex justify-between items-center border-b border-green-800">
+                    <span><i class="fa-solid fa-receipt text-green-400 mr-2"></i> Venta (Cabecera)</span>
+                </div>
+                <ul class="p-4 space-y-2 font-mono text-sm text-slate-300">
+                    <li class="flex items-center"><i class="fa-solid fa-key text-uacGold w-5"></i> IdVenta <span class="pk-badge">PK</span></li>
+                    <li class="pl-5">Fecha_Venta</li>
+                    <li class="pl-5">Total</li>
+                    <li class="flex items-center"><i class="fa-solid fa-link text-blue-400 w-5"></i> IdCliente <span class="fk-badge">FK</span></li>
+                    <li class="flex items-center"><i class="fa-solid fa-link text-blue-400 w-5"></i> IdEmpleado <span class="fk-badge">FK</span></li>
+                </ul>
+            </div>
+
+            <!-- Detalle Venta -->
+            <div class="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden lg:col-start-2 lg:col-end-4 xl:col-span-1 xl:col-start-auto reveal delay-100">
+                <div class="bg-purple-900/60 py-3 px-4 font-bold flex justify-between items-center border-b border-purple-800">
+                    <span><i class="fa-solid fa-list text-purple-400 mr-2"></i> Detalle_Venta (Entidad Puente)</span>
+                </div>
+                <ul class="p-4 space-y-2 font-mono text-sm text-slate-300">
+                    <li class="flex items-center"><i class="fa-solid fa-key text-uacGold w-5"></i> IdDetalleVenta <span class="pk-badge">PK</span></li>
+                    <li class="flex items-center"><i class="fa-solid fa-link text-blue-400 w-5"></i> IdVenta <span class="fk-badge">FK</span></li>
+                    <li class="flex items-center"><i class="fa-solid fa-link text-blue-400 w-5"></i> IdProducto <span class="fk-badge">FK</span></li>
+                    <li class="pl-5">Cantidad</li>
+                    <li class="pl-5">PrecioUnitario</li>
+                    <li class="pl-5">Subtotal</li>
+                </ul>
+            </div>
+            
+            <!-- Explanation Note -->
+            <div class="bg-yellow-900/20 border border-yellow-700/50 rounded-lg p-4 flex items-center reveal delay-200">
+                <i class="fa-solid fa-lightbulb text-yellow-500 text-3xl mr-4"></i>
+                <p class="text-sm text-yellow-200/80">
+                    <strong>Nota de diseño:</strong> La tabla puente <em>Detalle_Venta</em> rompe exitosamente la relación de "muchos a muchos" (N:M) entre Ventas y Productos, normalizando la base de datos.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Cardinalities & Relations Section -->
+    <section class="py-16 px-6 bg-cardBg border-t border-slate-800">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mb-4">Relaciones y Cardinalidades</h2>
+                <div class="h-1 w-24 bg-blue-500 mx-auto rounded"></div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Relation 1 -->
+                <div class="flex items-center p-4 bg-slate-800 rounded-lg border-l-4 border-uacGold reveal">
+                    <div class="text-2xl w-12 text-center text-slate-500"><i class="fa-solid fa-users-between-lines"></i></div>
+                    <div class="ml-4 flex-1">
+                        <h4 class="font-bold text-lg text-white">Cliente <span class="text-uacGold mx-2">1 : N</span> Venta</h4>
+                        <p class="text-sm text-slate-400 mt-1">Un cliente realiza múltiples compras, pero una factura pertenece a un solo cliente.</p>
+                    </div>
+                </div>
+
+                <!-- Relation 2 -->
+                <div class="flex items-center p-4 bg-slate-800 rounded-lg border-l-4 border-green-500 reveal">
+                    <div class="text-2xl w-12 text-center text-slate-500"><i class="fa-solid fa-handshake"></i></div>
+                    <div class="ml-4 flex-1">
+                        <h4 class="font-bold text-lg text-white">Empleado <span class="text-green-500 mx-2">1 : N</span> Venta</h4>
+                        <p class="text-sm text-slate-400 mt-1">Un asesor gestiona muchas ventas, pero una venta específica es comisionada a un solo empleado.</p>
+                    </div>
+                </div>
+
+                <!-- Relation 3 -->
+                <div class="flex items-center p-4 bg-slate-800 rounded-lg border-l-4 border-blue-500 reveal">
+                    <div class="text-2xl w-12 text-center text-slate-500"><i class="fa-solid fa-file-invoice"></i></div>
+                    <div class="ml-4 flex-1">
+                        <h4 class="font-bold text-lg text-white">Venta <span class="text-blue-500 mx-2">1 : N</span> Detalle_Venta</h4>
+                        <p class="text-sm text-slate-400 mt-1">Una factura contiene múltiples líneas de productos, pero un detalle pertenece única y exclusivamente a esa factura.</p>
+                    </div>
+                </div>
+
+                <!-- Relation 4 -->
+                <div class="flex items-center p-4 bg-slate-800 rounded-lg border-l-4 border-purple-500 reveal">
+                    <div class="text-2xl w-12 text-center text-slate-500"><i class="fa-solid fa-boxes-packing"></i></div>
+                    <div class="ml-4 flex-1">
+                        <h4 class="font-bold text-lg text-white">Producto <span class="text-purple-500 mx-2">1 : N</span> Detalle_Venta</h4>
+                        <p class="text-sm text-slate-400 mt-1">Un repuesto del inventario aparece en múltiples ventas, pero una línea de detalle refiere a un único producto del catálogo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conclusion Section -->
+    <section class="py-16 px-6 max-w-5xl mx-auto text-center reveal">
+        <div class="bg-gradient-to-br from-uacBlue to-slate-900 p-10 rounded-3xl border border-blue-800 shadow-2xl relative overflow-hidden">
+            <i class="fa-solid fa-rocket absolute -right-4 -bottom-4 text-8xl text-white/5"></i>
+            <h2 class="text-3xl font-heading font-bold text-white mb-6">Conclusión y Beneficios</h2>
+            <p class="text-lg text-slate-300 leading-relaxed mb-8 max-w-3xl mx-auto">
+                El modelo diseñado centraliza y organiza eficientemente la información crítica, eliminando redundancias. Al establecer esta trazabilidad, el sistema abre nuevas oportunidades para <strong>estrategias de fidelización y marketing</strong>, y sienta las bases tecnológicas para soportar la <strong>futura transformación digital</strong> de Intrasev Motors.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <span class="bg-white/10 px-4 py-2 rounded-full text-sm font-semibold text-uacGold border border-uacGold/30"><i class="fa-solid fa-check mr-2"></i> Altamente Escalable</span>
+                <span class="bg-white/10 px-4 py-2 rounded-full text-sm font-semibold text-blue-400 border border-blue-400/30"><i class="fa-solid fa-check mr-2"></i> Integración Fluida</span>
+                <span class="bg-white/10 px-4 py-2 rounded-full text-sm font-semibold text-green-400 border border-green-400/30"><i class="fa-solid fa-check mr-2"></i> Decisiones Gerenciales Seguras</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#05080f] py-10 border-t border-slate-800">
+        <div class="max-w-5xl mx-auto px-6 text-center text-slate-500 text-sm">
+            <div class="flex justify-center items-center gap-4 mb-6">
+                <i class="fa-solid fa-database text-2xl text-slate-600"></i>
+                <i class="fa-solid fa-laptop-code text-2xl text-slate-600"></i>
+            </div>
+            <p class="mb-2">Proyecto Universitario: Taller 1.4 - Modelo Conceptual | Grupo 64 bits</p>
+            <p class="mb-6">Universidad Andina del Cusco - Facultad de Ingeniería y Arquitectura (2026)</p>
+            <p class="text-xs">
+                <strong>Referencias Base:</strong> Silberschatz et al. (2002), Quiroz (2003), Elmasri & Navathe (2007), Date (2001).<br>
+                <em>Este documento fue modelado como práctica de bases de datos relacionales.</em>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scroll Reveal Script -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>
