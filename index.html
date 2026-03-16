@@ -1,0 +1,263 @@
+import React from 'react';
+import { 
+  Car, 
+  Database, 
+  Users, 
+  ShoppingCart, 
+  FileText, 
+  Briefcase, 
+  Wrench, 
+  Tag, 
+  Calendar,
+  Settings,
+  ShieldCheck,
+  TrendingUp
+} from 'lucide-react';
+
+export default function App() {
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans pb-12">
+      {/* Encabezado */}
+      <header className="bg-blue-900 text-white py-12 px-6 shadow-lg relative overflow-hidden">
+        <div className="absolute top-0 right-0 opacity-10">
+          <Database size={300} className="transform translate-x-16 -translate-y-16" />
+        </div>
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+            Modelo Conceptual de Base de Datos
+          </h1>
+          <h2 className="text-2xl md:text-3xl font-light text-blue-200 flex items-center justify-center gap-3">
+            <Car size={32} /> Intrasev Motors
+          </h2>
+          <p className="mt-6 text-blue-100 max-w-2xl mx-auto text-lg">
+            Una arquitectura relacional desarrollada para gestionar el inventario, ventas y clientes de una empresa de repuestos automotrices de alta gama en Cusco, Perú.
+          </p>
+        </div>
+      </header>
+
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 space-y-16">
+        
+        {/* Sección 1: El Contexto */}
+        <section className="bg-white rounded-2xl shadow-md p-8 border-l-8 border-orange-500 hover:shadow-lg transition-shadow">
+          <div className="flex flex-col md:flex-row gap-8 items-center">
+            <div className="flex-1">
+              <h3 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                <Settings className="text-orange-500" /> El Contexto
+              </h3>
+              <p className="text-slate-600 mb-4 leading-relaxed text-lg">
+                <strong>Intrasev Motors</strong> es especialista en el suministro de motores y repuestos para vehículos de lujo (Audi, BMW, Mercedes-Benz). Con el aumento de las transacciones y el alto valor del inventario, la gestión manual se volvió insostenible.
+              </p>
+              <p className="text-slate-600 leading-relaxed text-lg">
+                <strong className="text-slate-800">El Desafío:</strong> Crear un sistema estructurado para vincular de manera exacta el catálogo de productos premium con las ventas realizadas, los clientes y los empleados responsables.
+              </p>
+            </div>
+            <div className="hidden md:flex flex-shrink-0 w-48 h-48 bg-blue-50 rounded-full items-center justify-center border-4 border-blue-100 shadow-inner">
+              <Wrench size={80} className="text-blue-800" />
+            </div>
+          </div>
+        </section>
+
+        {/* Sección 2: Requisitos de Negocio */}
+        <section>
+          <h3 className="text-3xl font-bold text-center text-slate-800 mb-10">
+            Requerimientos del Negocio
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <ReqCard 
+              icon={<Settings className="text-white" size={24} />} 
+              title="REQ-01: Inventario" 
+              desc="Almacenar el catálogo de motores y repuestos con categoría, marca, precio y control de stock en tiempo real."
+              color="bg-blue-600"
+            />
+            <ReqCard 
+              icon={<Users className="text-white" size={24} />} 
+              title="REQ-02: Clientes" 
+              desc="Registro de información fiscal y de contacto (DNI/RUC, Nombre, Teléfono, Dirección) para la facturación."
+              color="bg-emerald-600"
+            />
+            <ReqCard 
+              icon={<Briefcase className="text-white" size={24} />} 
+              title="REQ-03: Empleados" 
+              desc="Trazabilidad de los asesores de ventas en cada transacción para medir su rendimiento y eficiencia."
+              color="bg-purple-600"
+            />
+            <ReqCard 
+              icon={<ShoppingCart className="text-white" size={24} />} 
+              title="REQ-04: Ventas y Detalles" 
+              desc="Registro de la venta general y desglose de los múltiples productos adquiridos generando subtotales."
+              color="bg-orange-500"
+            />
+            <ReqCard 
+              icon={<ShieldCheck className="text-white" size={24} />} 
+              title="REQ-05: Reglas de Negocio" 
+              desc="El sistema está blindado para no permitir el registro de ventas con montos totales en cero o negativos."
+              color="bg-red-500"
+            />
+          </div>
+        </section>
+
+        {/* Sección 3: Entidades y Atributos */}
+        <section className="bg-slate-900 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-slate-900 to-slate-800 z-0"></div>
+          
+          <div className="relative z-10 text-center mb-10">
+            <h3 className="text-3xl font-bold mb-3 flex items-center justify-center gap-3">
+              <Database className="text-blue-400" size={32} /> Entidades y Atributos
+            </h3>
+            <p className="text-slate-400">Estructura de las tablas diseñadas para eliminar la redundancia</p>
+          </div>
+
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <EntityCard title="Cliente" icon={<Users size={20} />} pk="IdCliente">
+              <Attr name="Razon_Social_Nombre" type="Texto" />
+              <Attr name="DNI_RUC" type="Texto" />
+              <Attr name="Telefono" type="Número" />
+              <Attr name="Correo" type="Texto" />
+              <Attr name="Direccion" type="Texto" />
+            </EntityCard>
+
+            <EntityCard title="Empleado" icon={<Briefcase size={20} />} pk="IdEmpleado">
+              <Attr name="Nombre_Completo" type="Texto" />
+              <Attr name="Cargo" type="Texto" />
+              <Attr name="Telefono" type="Texto" />
+            </EntityCard>
+
+            <EntityCard title="Producto" icon={<Tag size={20} />} pk="IdProducto">
+              <Attr name="Nombre_Producto" type="Texto" />
+              <Attr name="Categoria" type="Texto" />
+              <Attr name="Marca_Compatible" type="Texto" />
+              <Attr name="Precio" type="Decimal" />
+              <Attr name="Stock" type="Número" />
+            </EntityCard>
+
+            <EntityCard title="Venta" icon={<Calendar size={20} />} pk="IdVenta">
+              <Attr name="Fecha_Venta" type="Fecha" />
+              <Attr name="Total" type="Decimal" />
+              <Attr name="IdCliente" type="FK (Num)" isFk />
+              <Attr name="IdEmpleado" type="FK (Num)" isFk />
+            </EntityCard>
+
+            <EntityCard title="Detalle_Venta" icon={<FileText size={20} />} pk="IdDetalleVenta" className="xl:col-span-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
+                <div>
+                  <Attr name="IdVenta" type="FK (Num)" isFk />
+                  <Attr name="IdProducto" type="FK (Num)" isFk />
+                </div>
+                <div>
+                  <Attr name="Cantidad" type="Número" />
+                  <Attr name="PrecioUnitario" type="Decimal" />
+                  <Attr name="Subtotal" type="Decimal" />
+                </div>
+              </div>
+            </EntityCard>
+          </div>
+        </section>
+
+        {/* Sección 4: Relaciones y Cardinalidad */}
+        <section>
+          <h3 className="text-3xl font-bold text-center text-slate-800 mb-10">
+            Relaciones y Cardinalidades (1:N)
+          </h3>
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4">
+            <RelRow 
+              from="Cliente" to="Venta" 
+              desc="Un cliente puede realizar múltiples compras a lo largo del tiempo, pero una factura pertenece únicamente a un solo cliente."
+            />
+            <RelRow 
+              from="Empleado" to="Venta" 
+              desc="Un asesor puede gestionar muchas ventas, pero una venta en particular es registrada por un solo empleado."
+            />
+            <RelRow 
+              from="Venta" to="Detalle_Venta" 
+              desc="Una factura general puede contener múltiples líneas de detalle (varios productos), pero un detalle pertenece exclusivamente a esa factura."
+            />
+            <RelRow 
+              from="Producto" to="Detalle_Venta" 
+              desc="Un producto (ej: Motor BMW) puede ser vendido muchas veces en diferentes detalles, pero una línea de detalle se refiere a un solo producto."
+            />
+            
+            <div className="mt-8 p-5 bg-blue-50 border-l-4 border-blue-600 rounded-r-lg shadow-sm flex gap-4 items-start">
+              <ShieldCheck className="text-blue-600 shrink-0 mt-1" size={24} />
+              <div>
+                <h4 className="font-bold text-blue-900 mb-1">Nota de Diseño de Base de Datos</h4>
+                <p className="text-blue-800 text-sm leading-relaxed">
+                  La inclusión de la entidad puente <strong className="font-mono bg-blue-100 px-1 rounded">Detalle_Venta</strong> rompe exitosamente la relación de Muchos-a-Muchos (N:M) que existiría de forma natural entre "Venta" y "Producto", logrando normalizar la base de datos para evitar anomalías y redundancias.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Sección 5: Conclusión */}
+        <section className="bg-gradient-to-r from-blue-900 to-blue-700 rounded-2xl p-10 text-white shadow-2xl flex flex-col items-center text-center">
+          <TrendingUp size={56} className="text-orange-400 mb-6 drop-shadow-md" />
+          <h3 className="text-3xl font-extrabold mb-6">Conclusión del Proyecto</h3>
+          <p className="max-w-4xl leading-relaxed text-blue-100 text-lg">
+            El modelo conceptual centraliza y organiza eficientemente la información crítica de la empresa. Al establecer una trazabilidad estructurada entre clientes, ventas y asesores, el sistema previene rupturas de stock, facilita el análisis del historial de compras y sienta unas bases tecnológicas sólidas y altamente escalables. Esto prepara a <strong>Intrasev Motors</strong> para su futura transformación digital (como un sistema de facturación electrónica o e-commerce).
+          </p>
+        </section>
+
+      </main>
+    </div>
+  );
+}
+
+// Componentes Auxiliares
+const ReqCard = ({ icon, title, desc, color }) => (
+  <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+    <div className={w-14 h-14 rounded-xl flex items-center justify-center mb-5 shadow-sm ${color}}>
+      {icon}
+    </div>
+    <h4 className="font-bold text-slate-800 mb-3 text-lg">{title}</h4>
+    <p className="text-slate-600 text-sm leading-relaxed">{desc}</p>
+  </div>
+);
+
+const EntityCard = ({ title, icon, pk, children, className = "" }) => (
+  <div className={bg-slate-800 border border-slate-700 rounded-xl overflow-hidden flex flex-col shadow-lg ${className}}>
+    <div className="bg-slate-950 p-4 border-b border-slate-700 flex justify-between items-center">
+      <h4 className="font-bold text-blue-400 flex items-center gap-2 uppercase tracking-wider text-sm">
+        {icon} {title}
+      </h4>
+    </div>
+    <div className="p-5 flex-1 bg-slate-800/50">
+      <div className="flex justify-between items-center border-b border-slate-600/50 pb-3 mb-3">
+        <span className="text-orange-400 font-mono text-sm flex items-center gap-2 font-semibold">
+          <span className="bg-orange-900/40 text-orange-300 text-xs px-2 py-0.5 rounded border border-orange-800/50">PK</span>
+          {pk}
+        </span>
+      </div>
+      <div className="space-y-2.5">
+        {children}
+      </div>
+    </div>
+  </div>
+);
+
+const Attr = ({ name, type, isFk }) => (
+  <div className="flex justify-between items-center text-sm font-mono group hover:bg-slate-700/30 p-1 -mx-1 rounded transition-colors">
+    <span className={flex items-center gap-2 ${isFk ? 'text-blue-300' : 'text-slate-300'}}>
+      {isFk && <span className="bg-blue-900/50 text-blue-300 text-[10px] px-1.5 py-0.5 rounded border border-blue-800/50">FK</span>}
+      {name}
+    </span>
+    <span className="text-slate-500 text-xs font-sans bg-slate-900/50 px-2 py-0.5 rounded">{type}</span>
+  </div>
+);
+
+const RelRow = ({ from, to, desc }) => (
+  <div className="flex flex-col md:flex-row md:items-center gap-4 p-5 hover:bg-slate-50 rounded-xl transition-all border border-transparent hover:border-slate-200">
+    <div className="flex items-center justify-between md:justify-start gap-3 w-full md:w-64 shrink-0">
+      <span className="bg-blue-100 text-blue-800 px-4 py-1.5 rounded-lg text-sm font-bold shadow-sm">{from}</span>
+      <div className="flex items-center gap-2 text-slate-400">
+        <div className="h-px w-6 md:w-10 bg-slate-300"></div>
+        <span className="text-xs font-bold text-slate-500 tracking-widest">1:N</span>
+        <div className="h-px w-6 md:w-10 bg-slate-300"></div>
+        <div className="w-2 h-2 rounded-full bg-slate-400"></div>
+      </div>
+      <span className="bg-orange-100 text-orange-800 px-4 py-1.5 rounded-lg text-sm font-bold shadow-sm">{to}</span>
+    </div>
+    <div className="text-slate-600 text-sm md:text-base flex-1 mt-2 md:mt-0 md:pl-6 md:border-l md:border-slate-200">
+      {desc}
+    </div>
+  </div>
+);
