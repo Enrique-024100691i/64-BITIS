@@ -3,204 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informe Taller 1.4 - Intrasev Motors</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Modelo Conceptual - Intrasev Motors</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .hero-gradient { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
-        .sql-box { background-color: #1e1e1e; color: #d4d4d4; padding: 1.5rem; border-radius: 0.5rem; font-family: 'Courier New', Courier, monospace; overflow-x: auto; }
-        .keyword { color: #569cd6; }
-        .string { color: #ce9178; }
-        .comment { color: #6a9955; }
+        :root {
+            --primary-color: #003366;
+            --secondary-color: #f4f4f4;
+            --accent-color: #e67e22;
+            --text-color: #333;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+        nav {
+            background: #eee;
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #ddd;
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        section {
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+        h2 {
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding-bottom: 10px;
+        }
+        .card {
+            background: var(--secondary-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--primary-color);
+            color: white;
+            margin-top: 40px;
+        }
+        .badge {
+            background: var(--accent-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body>
 
-    <!-- Header / Portada -->
-    <header class="hero-gradient text-white py-20 px-6 text-center shadow-lg">
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">Taller 1.4. Modelo Conceptual (20%)</h1>
-            <p class="text-xl opacity-90 mb-8">Escuela Profesional de Ingeniería de Sistemas - Universidad Andina del Cusco</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-                <div>
-                    <h3 class="font-semibold text-blue-200">Docente:</h3>
-                    <p>Hugo Espetia Huamanga</p>
-                    <h3 class="font-semibold text-blue-200 mt-4">Grupo:</h3>
-                    <p>64 bits</p>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-blue-200">Alumnos:</h3>
-                    <ul class="list-disc list-inside">
-                        <li>Triveños Llaccta Richard (Scrum Master)</li>
-                        <li>Yehan Carlos Surcos Alvarez</li>
-                        <li>Mariño Chauca Joseph Beder</li>
-                        <li>Zavaleta Fuentes Paolo</li>
-                    </ul>
-                </div>
-            </div>
+<header>
+    <h1>Taller 1.4: Modelo Conceptual</h1>
+    <p>Ingeniería de Sistemas - Universidad Andina del Cusco</p>
+    <div style="margin-top: 10px;">
+        <strong>Equipo 64 bits:</strong> Triveños, Surcos, Mariño, Zavaleta
+    </div>
+</header>
+
+<nav>
+    <a href="#contexto">Contexto</a>
+    <a href="#requerimientos">Requerimientos</a>
+    <a href="#entidades">Entidades</a>
+    <a href="#modelo">Modelo Conceptual</a>
+    <a href="#sql">Código SQL</a>
+    <a href="#conclusion">Conclusión</a>
+</nav>
+
+<div class="container">
+    
+    <section id="introduccion">
+        <h2>Introducción</h2>
+        <p>El presente informe detalla el diseño del <strong>Modelo Conceptual de Base de Datos</strong> para la empresa <strong>Intrasev Motors</strong>[cite: 284]. El objetivo es aplicar fundamentos teóricos para resolver la gestión de inventario y ventas de repuestos de alta gama en un entorno real[cite: 285, 287].</p>
+    </section>
+
+    <section id="contexto">
+        <h2>1. Contexto: ¿Qué es Intrasev Motors?</h2>
+        <div class="card">
+            <p>Ubicada en Cusco, se dedica a la comercialización de motores y repuestos premium (Audi, BMW, Mercedes-Benz)[cite: 290, 291]. La empresa busca organizar su flujo constante de información para vincular catálogo, ventas, clientes y empleados de forma exacta[cite: 293, 294].</p>
         </div>
-    </header>
+    </section>
 
-    <!-- Navegación Rápida -->
-    <nav class="sticky top-0 bg-white shadow-md z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center overflow-x-auto">
-            <a href="#introduccion" class="hover:text-blue-600 font-medium px-3 whitespace-nowrap">Introducción</a>
-            <a href="#contexto" class="hover:text-blue-600 font-medium px-3 whitespace-nowrap">Contexto</a>
-            <a href="#entidades" class="hover:text-blue-600 font-medium px-3 whitespace-nowrap">Entidades</a>
-            <a href="#modelo" class="hover:text-blue-600 font-medium px-3 whitespace-nowrap">Modelo Lucidchart</a>
-            <a href="#sql" class="hover:text-blue-600 font-medium px-3 whitespace-nowrap">Código SQL</a>
+    <section id="requerimientos">
+        <h2>2. Requerimientos del Negocio</h2>
+        <ul>
+            <li><strong>REQ-01:</strong> Gestión de Inventario (categoría, marca compatible, stock)[cite: 301].</li>
+            <li><strong>REQ-02:</strong> Registro de Clientes (DNI/RUC, Razón Social)[cite: 302].</li>
+            <li><strong>REQ-03:</strong> Trazabilidad de Empleados por transacción[cite: 303].</li>
+            <li><strong>REQ-04:</strong> Control detallado de ventas (productos, cantidades y subtotales)[cite: 304].</li>
+            <li><strong>REQ-05:</strong> Reglas de negocio (no permitir montos negativos)[cite: 305].</li>
+        </ul>
+    </section>
+
+    <section id="entidades">
+        <h2>3. Entidades e Identificadores</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Entidad</th>
+                    <th>Llave Primaria (PK)</th>
+                    <th>Atributos Principales</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Cliente</td>
+                    <td>IdCliente</td>
+                    <td>Razón Social, DNI_RUC, Correo [cite: 309]</td>
+                </tr>
+                <tr>
+                    <td>Empleado</td>
+                    <td>IdEmpleado</td>
+                    <td>Nombre Completo, Cargo, Teléfono [cite: 310]</td>
+                </tr>
+                <tr>
+                    <td>Producto</td>
+                    <td>IdProducto</td>
+                    <td>Categoría, Marca Compatible, Stock [cite: 313]</td>
+                </tr>
+                <tr>
+                    <td>Venta</td>
+                    <td>IdVenta</td>
+                    <td>Fecha, Total, IdCliente (FK), IdEmpleado (FK) [cite: 315]</td>
+                </tr>
+                <tr>
+                    <td>Detalle_Venta</td>
+                    <td>IdDetalleVenta</td>
+                    <td>Cantidad, Subtotal, IdProducto (FK) [cite: 317]</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="modelo">
+        <h2>4. Modelo Conceptual Lucidchart</h2>
+        <p>El diseño rompe la relación "muchos a muchos" entre Venta y Producto mediante la tabla puente <em>Detalle_Venta</em>[cite: 324].</p>
+        <div style="text-align: center; background: #f9f9f9; padding: 40px; border: 2px dashed #ccc;">
+            <p><strong>[Aquí puedes insertar la imagen de tu diagrama de Lucidchart]</strong></p>
+            <p><small>Referencia visual a Figura 1 del informe [cite: 327]</small></p>
         </div>
-    </nav>
+    </section>
 
-    <main class="max-w-5xl mx-auto px-6 py-12 space-y-20">
-
-        <!-- Introducción -->
-        <section id="introduccion" class="scroll-mt-24">
-            <h2 class="text-3xl font-bold text-blue-900 border-b-4 border-blue-500 inline-block mb-6">Introducción</h2>
-            <p class="text-lg leading-relaxed text-gray-700">
-                En la actualidad, la transformación digital es un paso obligatorio para las empresas. Este informe detalla el diseño del <strong>Modelo Conceptual de Base de Datos</strong> para la empresa <strong>Intrasev Motors</strong>, aplicando fundamentos de bases de datos relacionales para optimizar la gestión de inventario y ventas.
-            </p>
-        </section>
-
-        <!-- Contexto -->
-        <section id="contexto" class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 scroll-mt-24">
-            <div class="flex flex-col md:flex-row gap-8 items-center">
-                <div class="flex-1">
-                    <h2 class="text-3xl font-bold text-blue-900 mb-4">¿Qué es Intrasev Motors?</h2>
-                    <p class="text-gray-700 leading-relaxed">
-                        Ubicada en Cusco, se dedica a la comercialización de motores y repuestos para vehículos de alta gama (Audi, BMW, Mercedes-Benz). El reto principal es organizar eficientemente su inventario de alto valor y vincularlo con las ventas y el desempeño de sus empleados.
-                    </p>
-                </div>
-                <div class="w-full md:w-1/3 text-center p-6 bg-blue-50 rounded-xl">
-                    <i class="fas fa-car-side text-6xl text-blue-600 mb-4"></i>
-                    <p class="font-semibold">Sector Automotriz Premium</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Requerimientos -->
-        <section class="scroll-mt-24">
-            <h2 class="text-3xl font-bold text-blue-900 mb-8 text-center">Requerimientos del Negocio</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="p-6 bg-white rounded-xl shadow-sm border-t-4 border-blue-500">
-                    <h4 class="font-bold text-blue-700 mb-2 underline">REQ-01: Inventario</h4>
-                    <p class="text-sm text-gray-600">Catálogo de motores, categorías, marcas compatibles y control de stock.</p>
-                </div>
-                <div class="p-6 bg-white rounded-xl shadow-sm border-t-4 border-green-500">
-                    <h4 class="font-bold text-green-700 mb-2 underline">REQ-02: Clientes</h4>
-                    <p class="text-sm text-gray-600">Registro de DNI/RUC, razón social y contacto para facturación.</p>
-                </div>
-                <div class="p-6 bg-white rounded-xl shadow-sm border-t-4 border-purple-500">
-                    <h4 class="font-bold text-purple-700 mb-2 underline">REQ-03: Empleados</h4>
-                    <p class="text-sm text-gray-600">Trazabilidad de asesores comerciales por cada transacción.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Entidades y Relaciones -->
-        <section id="entidades" class="scroll-mt-24">
-            <h2 class="text-3xl font-bold text-blue-900 mb-8">Arquitectura del Modelo</h2>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left bg-white rounded-xl overflow-hidden shadow-sm">
-                    <thead class="bg-blue-900 text-white">
-                        <tr>
-                            <th class="p-4">Entidad</th>
-                            <th class="p-4">Descripción</th>
-                            <th class="p-4">Atributos Clave</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-200">
-                        <tr>
-                            <td class="p-4 font-bold">Cliente</td>
-                            <td class="p-4">Compradores (talleres o particulares)</td>
-                            <td class="p-4 text-sm italic">Razon_Social, DNI_RUC, Teléfono</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-bold">Producto</td>
-                            <td class="p-4">Motores y repuestos premium</td>
-                            <td class="p-4 text-sm italic">Categoría, Marca_Compatible, Stock</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-bold">Venta</td>
-                            <td class="p-4">Cabecera de la transacción</td>
-                            <td class="p-4 text-sm italic">Fecha, Total, FK_Cliente, FK_Empleado</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-bold">Detalle_Venta</td>
-                            <td class="p-4">Tabla puente para múltiples productos</td>
-                            <td class="p-4 text-sm italic">Cantidad, Subtotal, FK_Producto</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Diagrama Lucidchart -->
-        <section id="modelo" class="scroll-mt-24 text-center">
-            <h2 class="text-3xl font-bold text-blue-900 mb-6">Modelo Conceptual Lucidchart</h2>
-            <div class="bg-white p-4 rounded-2xl shadow-lg border border-gray-200 inline-block w-full">
-                <div class="aspect-video bg-gray-100 flex items-center justify-center rounded-lg border-2 border-dashed border-gray-300">
-                    <div class="text-center p-8">
-                        <i class="fas fa-project-diagram text-5xl text-blue-300 mb-4"></i>
-                        <p class="text-gray-500">Aquí se visualiza el diagrama ER (Entidad-Relación)</p>
-                        <a href="https://lucid.app/lucidchart/a1bb2084-57aa-47ca-b0f5-68a0c504973d/edit" target="_blank" class="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">Ver en Lucidchart</a>
-                    </div>
-                </div>
-                <p class="mt-4 text-sm text-gray-500">Figura 1. Estructura relacional de Intrasev Motors.</p>
-            </div>
-        </section>
-
-        <!-- Código SQL -->
-        <section id="sql" class="scroll-mt-24">
-            <h2 class="text-3xl font-bold text-blue-900 mb-6">Implementación Física (SQL Server)</h2>
-            <div class="sql-box">
-<span class="comment">-- CREACIÓN DE LA BASE DE DATOS</span>
-<span class="keyword">CREATE DATABASE</span> IntrasevMotors;
-<span class="keyword">GO</span>
-<span class="keyword">USE</span> IntrasevMotors;
-
-<span class="comment">-- TABLA PRODUCTO</span>
-<span class="keyword">CREATE TABLE</span> Producto (
-    ID_Producto <span class="keyword">INT PRIMARY KEY IDENTITY</span>(1,1),
-    Nombre_Producto <span class="keyword">VARCHAR</span>(150) <span class="keyword">NOT NULL</span>,
-    Categoria <span class="keyword">VARCHAR</span>(50) <span class="keyword">NOT NULL</span>,
-    Marca_Compatible <span class="keyword">VARCHAR</span>(50),
-    Precio <span class="keyword">DECIMAL</span>(10,2) <span class="keyword">NOT NULL</span>,
-    Stock <span class="keyword">INT NOT NULL</span>
+    <section id="sql">
+        <h2>5. Implementación en SQL Server</h2>
+        <p>A continuación se presenta un extracto del código DDL para la creación de las tablas principales[cite: 388, 416, 425]:</p>
+        <pre>
+-- Creación de Tabla Cliente
+CREATE TABLE Cliente (
+    ID_Cliente INT PRIMARY KEY IDENTITY(1,1),
+    Razon_Social_Nombre VARCHAR(150) NOT NULL,
+    DNI_RUC VARCHAR(20) NOT NULL UNIQUE,
+    Telefono VARCHAR(15),
+    Correo VARCHAR(100)
 );
 
-<span class="comment">-- TABLA DETALLE VENTA (ENTIDAD PUENTE)</span>
-<span class="keyword">CREATE TABLE</span> Detalle_Venta (
-    ID_Detalle <span class="keyword">INT PRIMARY KEY IDENTITY</span>(1,1),
-    ID_Venta <span class="keyword">INT NOT NULL</span>,
-    ID_Producto <span class="keyword">INT NOT NULL</span>,
-    Cantidad <span class="keyword">INT NOT NULL</span>,
-    Subtotal <span class="keyword">DECIMAL</span>(10,2)
+-- Creación de Tabla Venta
+CREATE TABLE Venta (
+    ID_Venta INT PRIMARY KEY IDENTITY(1,1),
+    Fecha_Venta DATETIME DEFAULT GETDATE(),
+    Total DECIMAL(10,2) NOT NULL,
+    ID_Cliente INT NOT NULL,
+    ID_Empleado INT NOT NULL,
+    CONSTRAINT FK_Cliente_Venta FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID_Cliente)
 );
-            </div>
-        </section>
+        </pre>
+    </section>
 
-        <!-- Conclusión -->
-        <section class="bg-blue-900 text-white p-10 rounded-3xl shadow-xl">
-            <h2 class="text-3xl font-bold mb-4">Conclusión</h2>
-            <p class="text-lg opacity-90 leading-relaxed">
-                El modelo diseñado centraliza eficientemente la información crítica, eliminando redundancias. La solidez técnica de la entidad puente "Detalle_Venta" garantiza una arquitectura escalable, sentando las bases tecnológicas para la transformación digital de Intrasev Motors.
-            </p>
-        </section>
+    <section id="conclusion">
+        <h2>Conclusión</h2>
+        <p>El modelo centraliza eficientemente la información crítica de Intrasev Motors, eliminando redundancias y permitiendo una arquitectura escalable para la transformación digital de la empresa[cite: 505, 507].</p>
+    </section>
 
-    </main>
+    <section id="referencias">
+        <h2>Referencias Bibliográficas</h2>
+        <ul style="font-size: 0.9rem; color: #666;">
+            <li>Silberschatz, A. et al. (2002). <em>Fundamentos de bases de datos</em>. McGraw-Hill[cite: 511].</li>
+            <li>Elmasri, R., & Navathe, S. B. (2007). <em>Sistemas de bases de datos</em>. Madrid[cite: 513].</li>
+            <li>Valdiviezo, G. T. et al. (2022). Transformación digital en América Latina[cite: 516].</li>
+        </ul>
+    </section>
+</div>
 
-    <footer class="bg-gray-900 text-gray-400 py-12 px-6 text-center">
-        <div class="max-w-4xl mx-auto">
-            <p class="mb-4">© 2026 Grupo 64 bits - Universidad Andina del Cusco</p>
-            <div class="flex justify-center space-x-6 text-2xl">
-                <a href="https://github.com/Enrique-024100691i/64-BITIS" target="_blank" class="hover:text-white"><i class="fab fa-github"></i></a>
-                <a href="#" class="hover:text-white"><i class="fas fa-university"></i></a>
-            </div>
-        </div>
-    </footer>
+<div class="footer">
+    <p>&copy; 2026 Grupo 64 bits - Facultad de Ingeniería y Arquitectura (UAC)</p>
+    <p><small>Proyecto académico para fines de aprendizaje.</small></p>
+</div>
 
 </body>
 </html>
