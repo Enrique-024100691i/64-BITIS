@@ -3,240 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modelo Conceptual - Intrasev Motors</title>
+    <title>Infografía: Procedimientos Almacenados en Oracle</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #003366;
-            --secondary-color: #f4f4f4;
-            --accent-color: #e67e22;
-            --text-color: #333;
-        }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            background-color: #fff;
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
         }
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
-        }
-        nav {
-            background: #eee;
-            padding: 10px;
-            position: sticky;
-            top: 0;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            border-bottom: 2px solid #ddd;
-        }
-        nav a {
-            text-decoration: none;
-            color: var(--primary-color);
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-        section {
-            margin-bottom: 40px;
-            padding-top: 20px;
-        }
-        h2 {
-            border-bottom: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            padding-bottom: 10px;
-        }
-        .card {
-            background: var(--secondary-color);
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-        th {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        pre {
-            background: #272822;
-            color: #f8f8f2;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            font-size: 0.85rem;
-        }
-        .footer {
-            text-align: center;
-            padding: 20px;
-            background: var(--primary-color);
-            color: white;
-            margin-top: 40px;
-        }
-        .badge {
-            background: var(--accent-color);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
-<body>
+<body class="text-slate-800 antialiased selection:bg-red-200 selection:text-red-900">
 
-<header>
-    <h1>Taller 1.4: Modelo Conceptual</h1>
-    <p>Ingeniería de Sistemas - Universidad Andina del Cusco</p>
-    <div style="margin-top: 10px;">
-        <strong>Equipo 64 bits:</strong> Triveños, Surcos, Mariño, Zavaleta
-    </div>
-</header>
+    <main class="max-w-5xl mx-auto my-8 p-4 sm:p-6 lg:p-8">
+        
+        <!-- ENCABEZADO -->
+        <header class="bg-gradient-to-r from-red-600 to-red-800 rounded-3xl shadow-2xl p-8 md:p-12 mb-12 text-center text-white relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mt-10 -mr-10 text-white opacity-10 text-9xl">
+                <i class="fas fa-database"></i>
+            </div>
+            <p class="text-red-200 font-semibold tracking-wider uppercase text-sm mb-2">Universidad Andina del Cusco</p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
+                Procedimientos Almacenados en <span class="text-white">Oracle</span>
+            </h1>
+            <p class="text-lg md:text-xl text-red-100 max-w-2xl mx-auto">
+                Análisis, diseño e implementación para la optimización de base de datos en el caso <strong>Intrasev Motors</strong>.
+            </p>
+        </header>
 
-<nav>
-    <a href="#contexto">Contexto</a>
-    <a href="#requerimientos">Requerimientos</a>
-    <a href="#entidades">Entidades</a>
-    <a href="#modelo">Modelo Conceptual</a>
-    <a href="#sql">Código SQL</a>
-    <a href="#conclusion">Conclusión</a>
-</nav>
+        <!-- SECCIÓN 1: CONTEXTO -->
+        <section class="mb-12">
+            <div class="flex items-center mb-6">
+                <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl shadow-lg z-10">
+                    1
+                </div>
+                <h2 class="text-2xl font-bold ml-4 text-slate-800">Contexto del Negocio</h2>
+            </div>
+            <div class="bg-white rounded-2xl shadow-md p-6 md:p-8 ml-6 border-l-4 border-blue-500 hover:shadow-xl transition-shadow duration-300">
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-blue-700 mb-3"><i class="fas fa-car-side mr-2"></i> ¿Qué es Intrasev Motors?</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Una empresa enfocada en la gestión de ventas de vehículos. Requiere un sistema robusto para manejar grandes volúmenes de información, asegurar la integridad de los datos y optimizar las consultas diarias mediante un modelado adecuado y reglas de negocio estructuradas en la base de datos.
+                        </p>
+                    </div>
+                    <div class="w-full md:w-1/3 flex justify-center text-blue-200 text-8xl">
+                        <i class="fas fa-building"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<div class="container">
-    
-    <section id="introduccion">
-        <h2>Introducción</h2>
-        <p>El presente informe detalla el diseño del <strong>Modelo Conceptual de Base de Datos</strong> para la empresa <strong>Intrasev Motors</strong>[cite: 284]. El objetivo es aplicar fundamentos teóricos para resolver la gestión de inventario y ventas de repuestos de alta gama en un entorno real[cite: 285, 287].</p>
-    </section>
+        <!-- SECCIÓN 2: DISEÑO DE BASE DE DATOS -->
+        <section class="mb-12">
+            <div class="flex items-center mb-6">
+                <div class="bg-emerald-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl shadow-lg z-10">
+                    2
+                </div>
+                <h2 class="text-2xl font-bold ml-4 text-slate-800">Fase de Diseño y Modelado</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 ml-6">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-2xl shadow-md p-6 border-t-4 border-emerald-400 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-emerald-500 text-3xl mb-4">
+                        <i class="fas fa-table-list"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Entidades y Atributos</h3>
+                    <p class="text-slate-600 text-sm">
+                        Identificación precisa de las entidades principales del negocio (Ej. Clientes, Vehículos, Ventas) y sus atributos correspondientes para normalizar la estructura de datos.
+                    </p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white rounded-2xl shadow-md p-6 border-t-4 border-emerald-400 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-emerald-500 text-3xl mb-4">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Relaciones y Cardinalidad</h3>
+                    <p class="text-slate-600 text-sm">
+                        Definición de cómo interactúan las entidades entre sí (1:1, 1:N, N:M) para mantener la integridad referencial y reflejar la realidad de las operaciones de venta.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-    <section id="contexto">
-        <h2>1. Contexto: ¿Qué es Intrasev Motors?</h2>
-        <div class="card">
-            <p>Ubicada en Cusco, se dedica a la comercialización de motores y repuestos premium (Audi, BMW, Mercedes-Benz)[cite: 290, 291]. La empresa busca organizar su flujo constante de información para vincular catálogo, ventas, clientes y empleados de forma exacta[cite: 293, 294].</p>
-        </div>
-    </section>
+        <!-- SECCIÓN 3: ESCENARIOS PRÁCTICOS -->
+        <section class="mb-12">
+            <div class="flex items-center mb-6">
+                <div class="bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl shadow-lg z-10">
+                    3
+                </div>
+                <h2 class="text-2xl font-bold ml-4 text-slate-800">Escenarios Prácticos en el Datacenter</h2>
+            </div>
+            
+            <div class="bg-slate-800 text-white rounded-3xl shadow-xl overflow-hidden ml-6">
+                <div class="p-8">
+                    <p class="text-slate-300 mb-8 text-lg">
+                        La solución al planteamiento del problema se aborda mediante la creación de <strong>Procedimientos Almacenados (Stored Procedures)</strong> en Oracle para automatizar y asegurar operaciones críticas:
+                    </p>
 
-    <section id="requerimientos">
-        <h2>2. Requerimientos del Negocio</h2>
-        <ul>
-            <li><strong>REQ-01:</strong> Gestión de Inventario (categoría, marca compatible, stock)[cite: 301].</li>
-            <li><strong>REQ-02:</strong> Registro de Clientes (DNI/RUC, Razón Social)[cite: 302].</li>
-            <li><strong>REQ-03:</strong> Trazabilidad de Empleados por transacción[cite: 303].</li>
-            <li><strong>REQ-04:</strong> Control detallado de ventas (productos, cantidades y subtotales)[cite: 304].</li>
-            <li><strong>REQ-05:</strong> Reglas de negocio (no permitir montos negativos)[cite: 305].</li>
-        </ul>
-    </section>
+                    <div class="space-y-6">
+                        <!-- Escenario A -->
+                        <div class="bg-slate-700/50 rounded-xl p-6 flex flex-col sm:flex-row gap-6 items-start border border-slate-600">
+                            <div class="bg-purple-500 text-white p-4 rounded-lg text-2xl">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-purple-300 mb-2">a) Registro Controlado de Clientes</h3>
+                                <p class="text-slate-300 text-sm">
+                                    Procedimiento diseñado para validar y registrar la información de nuevos clientes de forma segura. Evita duplicidad de datos, maneja excepciones y asegura que los registros cumplan con las reglas de negocio antes de ser insertados en la base de datos.
+                                </p>
+                            </div>
+                        </div>
 
-    <section id="entidades">
-        <h2>3. Entidades e Identificadores</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Entidad</th>
-                    <th>Llave Primaria (PK)</th>
-                    <th>Atributos Principales</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Cliente</td>
-                    <td>IdCliente</td>
-                    <td>Razón Social, DNI_RUC, Correo [cite: 309]</td>
-                </tr>
-                <tr>
-                    <td>Empleado</td>
-                    <td>IdEmpleado</td>
-                    <td>Nombre Completo, Cargo, Teléfono [cite: 310]</td>
-                </tr>
-                <tr>
-                    <td>Producto</td>
-                    <td>IdProducto</td>
-                    <td>Categoría, Marca Compatible, Stock [cite: 313]</td>
-                </tr>
-                <tr>
-                    <td>Venta</td>
-                    <td>IdVenta</td>
-                    <td>Fecha, Total, IdCliente (FK), IdEmpleado (FK) [cite: 315]</td>
-                </tr>
-                <tr>
-                    <td>Detalle_Venta</td>
-                    <td>IdDetalleVenta</td>
-                    <td>Cantidad, Subtotal, IdProducto (FK) [cite: 317]</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+                        <!-- Escenario B -->
+                        <div class="bg-slate-700/50 rounded-xl p-6 flex flex-col sm:flex-row gap-6 items-start border border-slate-600">
+                            <div class="bg-pink-500 text-white p-4 rounded-lg text-2xl">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-pink-300 mb-2">b) Consulta Rápida de Ventas</h3>
+                                <p class="text-slate-300 text-sm">
+                                    Procedimiento optimizado para extraer reportes y métricas de ventas. Reduce el tráfico de red procesando la consulta en el servidor (Datacenter) y retornando únicamente los resultados consolidados a las aplicaciones cliente.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <section id="modelo">
-        <h2>4. Modelo Conceptual Lucidchart</h2>
-        <p>El diseño rompe la relación "muchos a muchos" entre Venta y Producto mediante la tabla puente <em>Detalle_Venta</em>[cite: 324].</p>
-        <div style="text-align: center; background: #f9f9f9; padding: 40px; border: 2px dashed #ccc;">
-            <p><strong>[Aquí puedes insertar la imagen de tu diagrama de Lucidchart]</strong></p>
-            <p><small>Referencia visual a Figura 1 del informe [cite: 327]</small></p>
-        </div>
-    </section>
+        <!-- SECCIÓN 4: RECOMENDACIONES -->
+        <section class="mb-12">
+            <div class="flex items-center mb-6">
+                <div class="bg-amber-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl shadow-lg z-10">
+                    4
+                </div>
+                <h2 class="text-2xl font-bold ml-4 text-slate-800">Recomendaciones y Futuro</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ml-6">
+                <!-- Rec 1 -->
+                <div class="bg-white rounded-xl shadow p-6 border-b-4 border-amber-400 text-center">
+                    <i class="fab fa-java text-4xl text-amber-500 mb-4"></i>
+                    <i class="fab fa-windows text-4xl text-amber-500 mb-4 ml-2"></i>
+                    <h3 class="font-bold mb-2 text-slate-800">Desarrollo de Interfaz</h3>
+                    <p class="text-sm text-slate-600">Implementar una interfaz gráfica en lenguajes como <strong>Java o C#</strong> que consuma los procedimientos almacenados, brindando un uso intuitivo al personal de ventas.</p>
+                </div>
+                
+                <!-- Rec 2 -->
+                <div class="bg-white rounded-xl shadow p-6 border-b-4 border-amber-400 text-center">
+                    <i class="fas fa-server text-4xl text-amber-500 mb-4"></i>
+                    <h3 class="font-bold mb-2 text-slate-800">Mantenimiento Preventivo</h3>
+                    <p class="text-sm text-slate-600">Dada la alta valoración de los activos, se debe ejecutar un mantenimiento constante en el servidor Oracle para garantizar la continuidad del negocio.</p>
+                </div>
 
-    <section id="sql">
-        <h2>5. Implementación en SQL Server</h2>
-        <p>A continuación se presenta un extracto del código DDL para la creación de las tablas principales[cite: 388, 416, 425]:</p>
-        <pre>
--- Creación de Tabla Cliente
-CREATE TABLE Cliente (
-    ID_Cliente INT PRIMARY KEY IDENTITY(1,1),
-    Razon_Social_Nombre VARCHAR(150) NOT NULL,
-    DNI_RUC VARCHAR(20) NOT NULL UNIQUE,
-    Telefono VARCHAR(15),
-    Correo VARCHAR(100)
-);
+                <!-- Rec 3 -->
+                <div class="bg-white rounded-xl shadow p-6 border-b-4 border-amber-400 text-center">
+                    <i class="fas fa-cloud-arrow-up text-4xl text-amber-500 mb-4"></i>
+                    <h3 class="font-bold mb-2 text-slate-800">Copias de Seguridad</h3>
+                    <p class="text-sm text-slate-600">Establecer un plan automatizado de <strong>Backups</strong> para garantizar la disponibilidad permanente de la información ante contingencias técnicas.</p>
+                </div>
+            </div>
+        </section>
 
--- Creación de Tabla Venta
-CREATE TABLE Venta (
-    ID_Venta INT PRIMARY KEY IDENTITY(1,1),
-    Fecha_Venta DATETIME DEFAULT GETDATE(),
-    Total DECIMAL(10,2) NOT NULL,
-    ID_Cliente INT NOT NULL,
-    ID_Empleado INT NOT NULL,
-    CONSTRAINT FK_Cliente_Venta FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID_Cliente)
-);
-        </pre>
-    </section>
+        <!-- FOOTER -->
+        <footer class="mt-16 text-center text-slate-500 text-sm border-t border-slate-200 pt-8">
+            <p>Infografía generada a partir del documento: <em>Taller 2.1 Procedimiento Almacenados en Oracle</em>.</p>
+            <p class="mt-1">Autores del documento original: Triveños Llaccta, Surcos Alvarez, Mariño Chauca, Zavaleta Fuentes.</p>
+        </footer>
 
-    <section id="conclusion">
-        <h2>Conclusión</h2>
-        <p>El modelo centraliza eficientemente la información crítica de Intrasev Motors, eliminando redundancias y permitiendo una arquitectura escalable para la transformación digital de la empresa[cite: 505, 507].</p>
-    </section>
-
-    <section id="referencias">
-        <h2>Referencias Bibliográficas</h2>
-        <ul style="font-size: 0.9rem; color: #666;">
-            <li>Silberschatz, A. et al. (2002). <em>Fundamentos de bases de datos</em>. McGraw-Hill[cite: 511].</li>
-            <li>Elmasri, R., & Navathe, S. B. (2007). <em>Sistemas de bases de datos</em>. Madrid[cite: 513].</li>
-            <li>Valdiviezo, G. T. et al. (2022). Transformación digital en América Latina[cite: 516].</li>
-        </ul>
-    </section>
-</div>
-
-<div class="footer">
-    <p>&copy; 2026 Grupo 64 bits - Facultad de Ingeniería y Arquitectura (UAC)</p>
-    <p><small>Proyecto académico para fines de aprendizaje.</small></p>
-</div>
+    </main>
 
 </body>
 </html>
