@@ -1,0 +1,84 @@
+--INTEGRANTES: 
+-- Zavaleta Funetes Paolo Enrique
+--Mariño Chauca Joseph Beder
+
+--BASE DE DATOS: pubs
+--DESCRIPCIÓN: 10 Consultas con lógica de negocio (8 Inner, 1 Left, 1 Right)
+
+USE pubs
+GO
+
+-- 1. Inner joins (08 CONSULTAS)
+
+-- 1. Relación de Libros y sus Editoriales
+-- Objetivo: Identificar la empresa responsable de la publicación de cada título.
+SELECT T.title as [Título del Libro], P.pub_name as [Editorial]
+FROM dbo.titles T
+INNER JOIN dbo.publishers P ON T.pub_id = P.pub_id;
+
+-- 2. Autores y sus Libros Publicados
+-- Objetivo: Listar el catálogo de obras asociadas a cada autor registrado.
+SELECT A.au_fname + ' ' + A.au_lname AS [Autor], T.title as [Obra]
+FROM dbo.authors A
+INNER JOIN dbo.titleauthor TA ON A.au_id = TA.au_id
+INNER JOIN dbo.titles T ON TA.title_id = T.title_id;
+
+-- 3. Análisis de Ventas por Tienda
+-- Objetivo: Visualizar qué libros se están vendiendo y en qué establecimientos.
+SELECT ST.stor_name as [Tienda], T.title as [Libro], S.qty as [Cantidad Vendida]
+FROM dbo.stores ST
+INNER JOIN dbo.sales S ON ST.stor_id = S.stor_id
+INNER JOIN dbo.titles T ON S.title_id = T.title_id;
+
+-- 4. Reporte de Empleados y Cargos
+-- Objetivo: Gestión de RH para verificar los roles asignados al personal.
+SELECT E.fname + ' ' + E.lname AS [Empleado], J.job_desc as [Descripción del Cargo]
+FROM dbo.employee E
+INNER JOIN dbo.jobs J ON E.job_id = J.job_id;
+
+-- 5. Ubicación Geográfica de Autores con Publicaciones
+-- Objetivo: Determinar la residencia de los autores que tienen libros activos.
+SELECT DISTINCT A.au_fname + ' ' + A.au_lname as [Autor], A.city as [Ciudad], A.state as [Estado]
+FROM dbo.authors A
+INNER JOIN dbo.titleauthor TA ON A.au_id = TA.au_id;
+
+-- 6. Reporte de Regalías y Ganancias por Título
+-- Objetivo: Informe financiero para el cálculo de pagos por derechos de autor.
+SELECT T.title as [Título], P.pub_name as [Editorial], T.royalty as [Porcentaje Regalía]
+FROM dbo.titles T
+INNER JOIN dbo.publishers P ON T.pub_id = P.pub_id
+WHERE T.royalty IS NOT NULL;
+
+-- 7. Historial de Órdenes por Tienda
+-- Objetivo: Seguimiento de fechas de pedidos para control logístico.
+SELECT DISTINCT S.stor_name as [Tienda], SA.ord_num as [Nro Orden], SA.ord_date as [Fecha Pedido]
+FROM dbo.stores S
+INNER JOIN dbo.sales SA ON S.stor_id = SA.stor_id;
+
+-- 8. Libros de Categoría 'Business' y sus Autores
+-- Objetivo: Filtrar el catálogo para análisis de nicho de mercado empresarial.
+SELECT T.title as [Libro Comercial], A.au_lname as [Apellido Autor], T.price as [Precio]
+FROM dbo.titles T
+INNER JOIN dbo.titleauthor TA ON T.title_id = TA.title_id
+INNER JOIN dbo.authors A ON TA.au_id = A.au_id
+WHERE T.type = 'business';
+
+
+-- 2. LEFT JOIN (01 CONSULTA)
+
+-- 9. Autores sin libros publicados
+-- Objetivo: Identificar autores registrados en la base de datos que aún no tienen obras vinculadas.
+SELECT A.au_fname + ' ' + A.au_lname AS [Autor Sin Obra], T.title
+FROM dbo.authors A
+LEFT JOIN dbo.titleauthor TA ON A.au_id = TA.au_id
+LEFT JOIN dbo.titles T ON TA.title_id = T.title_id
+WHERE TA.title_id IS NULL;
+
+-- 3. RIGHT JOIN (01 CONSULTA)
+
+-- 10. Libros sin ventas registradas
+-- Objetivo: Identificar títulos que no han tenido movimiento comercial.
+SELECT T.title AS [Libro sin ventas]
+FROM dbo.sales S
+RIGHT JOIN dbo.titles T ON S.title_id = T.title_id
+WHERE S.title_id IS NULL;
