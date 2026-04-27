@@ -1,0 +1,102 @@
+namespace IntrasevMotors
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (IntrasevMotorsEntities db = new IntrasevMotorsEntities())
+            {
+                var consulta = from c in db.Cliente
+                               select new
+                               {
+                                   c.ID_Cliente,
+                                   c.Razon_Social_Nombre,
+                                   c.DNI_RUC,
+                                   c.Telefono,
+                                   c.Correo,
+                                   c.Direccion
+                               };
+
+                dgvTabla.DataSource = consulta.ToList();
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (IntrasevMotorsEntities db = new IntrasevMotorsEntities())
+            {
+                var consulta = from v in db.Venta
+                               select new
+                               {
+                                   v.ID_Venta,
+                                   v.Fecha_Venta,
+                                   v.Total,
+                                   v.ID_Cliente,
+                                   v.ID_Empleado
+                               };
+
+                dgvTabla.DataSource = consulta.ToList();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            using (IntrasevMotorsEntities db = new IntrasevMotorsEntities())
+            {
+                var consulta = from p in db.Producto
+                               select new
+                               {
+                                   p.ID_Producto,
+                                   p.Nombre_Producto,
+                                   p.Categoria,
+                                   p.Marca_Compatible,
+                                   p.Precio,
+                                   p.Stock
+                               };
+
+                dgvTabla.DataSource = consulta.ToList();
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            using (IntrasevMotorsEntities db = new IntrasevMotorsEntities())
+            {
+                var consulta = from emp in db.Empleado
+                               select new
+                               {
+                                   emp.ID_Empleado,
+                                   emp.Nombre_Completo,
+                                   emp.Cargo,
+                                   emp.Telefono
+                               };
+
+                dgvTabla.DataSource = consulta.ToList();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            using (IntrasevMotorsEntities db = new IntrasevMotorsEntities())
+            {
+                var consulta = from dv in db.Detalle_Venta
+                               select new
+                               {
+                                   dv.ID_Detalle,
+                                   dv.ID_Venta,
+                                   dv.ID_Producto,
+                                   dv.Cantidad,
+                                   dv.Precio_Unitario,
+                                   dv.Subtotal
+                               };
+
+                dgvTabla.DataSource = consulta.ToList();
+            }
+        }
+    }
+}
