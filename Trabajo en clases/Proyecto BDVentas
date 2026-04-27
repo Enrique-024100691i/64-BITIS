@@ -1,0 +1,43 @@
+namespace Proyecto
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnConsulta_Click(object sender, EventArgs e)
+        {
+            // Listar Productos de la BD
+            using (BDVentasEntities ventas = new BDVentasEntities())
+            {
+                var consulta = from P in ventas.TProducto
+                               select P;
+                dgvConsulta.DataSource = consulta.ToList();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Listar todos Clientes
+            using (BDVentasEntities ventas = new BDVentasEntities())
+            {
+                var consulta = from C in ventas.TCliente
+                               select new
+                               {
+                                   C.CodCliente,
+                                   C.Nombres,
+                                   C.Direccion
+                               };
+
+                dgvConsulta.DataSource = consulta.ToList();
+            }
+        }
+    }
+}
