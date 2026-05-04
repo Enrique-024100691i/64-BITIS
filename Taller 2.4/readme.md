@@ -5,9 +5,9 @@ IntrasevMotors es un sistema de escritorio orientado a la gestion integral de ve
 
 ## Integrantes
 * Triveños Llaccta, Richard  
-* [cite_start]Surcos Alvarez, Yehan Carlos 
-* [cite_start]Mariño Chauca, Joseph Beder
-* [cite_start]Zavaleta Fuentes, Paolo
+* Surcos Alvarez, Yehan Carlos 
+* Mariño Chauca, Joseph Beder
+* Zavaleta Fuentes, Paolo
 
 ## Estructura del Repositorio
 * **/Scripts**: Contiene los archivos SQL para la creacion de la base de datos IntrasevMotors, incluyendo tablas de Clientes, Productos y Ventas.
