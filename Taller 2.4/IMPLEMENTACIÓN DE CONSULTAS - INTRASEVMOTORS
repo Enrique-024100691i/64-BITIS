@@ -1,0 +1,161 @@
+// =========================================================
+// IMPLEMENTACIÓN DE CONSULTAS - INTRASEVMOTORS
+// NIVEL: 4to/5th CICLO (WinForms + Entity Framework)
+// =========================================================
+
+// --- CONSULTAS BÁSICAS (2) ---
+
+// 1. Listar todos los Clientes (CRUD: Listar)
+private void btnListarClientes_Click(object sender, EventArgs e)
+{
+    using (IntrasevMotorsEntities db = new IntrasevMotorsEntities())
+    {
+        var consulta = from c in db.Cliente
+                      select c;
+        dgvConsulta.DataSource = consulta.ToList();
+    }
+}
+
+// 2. Buscar Producto por ID (CRUD: Buscar)
+private void btnBuscarProducto_Click(object sender, EventArgs e)
+{
+    int idBusqueda = int.Parse(txtID.Text);
+    using (IntrasevMotorsEntities db = new IntrasevMotorsEntities())
+    {
+        var consulta = from p in db.Producto
+                      where p.ID_Producto == idBusqueda
+                      select p;
+        dgvConsulta.DataSource = consulta.ToList();
+    }
+}
+
+
+// --- CONSULTAS INTERMEDIAS (4) ---
+
+// 3. Listar Ventas con nombres de Clientes y Empleados (Navigation Properties)
+private void btnVentasDetalladas_Click(object sender, EventArgs e)
+{
+    using (IntrasevMotorsEntities db = new IntrasevMotorsEntities())
+    {
+        var consulta = from v in db.Venta
+                      select new {
+                          v.ID_Venta,
+                          v.Fecha_Venta,
+                          Cliente = v.Cliente.Razon_Social_Nombre,
+                          Vendedor = v.Empleado.Nombre_Completo,
+                          v.Total
+                      };
+        dgvConsulta.DataSource = consulta.ToList();
+    }
+}
+
+// 4. Filtrar Productos por Categoría y Stock mínimo
+private void btnFiltroStock_Click(object sender, EventArgs e)
+{
+    string cat = cbocategoria.Text;
+    using (IntrasevMotorsEntities db = new IntrasevMotorsEntities())
+    {
+        var consulta = from p in db.Producto
+                      where p.Categoria == cat && p.Stock > 0
+                      select p;
+        dgvConsulta.DataSource = consulta.ToList();
+    }
+}
+
+// 5. Listar Detalle de una Venta específica (Inner Join implícito)
+private void btnDetalleVenta_Click(object sender, EventArgs e)
+{
+    int idVenta = int.Parse(txtVentaID.Text);
+    using (IntrasevMotorsEntities db = new IntrasevMotorsEntities())
+    {
+        var consulta = from d in db.Detalle_Venta
+                      where d.ID_Venta == idVenta
+                      select new {
+                          d.ID_Producto,
+                          Producto = d.Producto.Nombre_Producto,
+                          d.Cantidad,
+                          d.Precio_Unitario,
+                          d.Subtotal
+                      };
+        dgvConsulta.DataSource = consulta.ToList();
+    }
+}
+
+// 6. Buscar Clientes por RUC o DNI
+private void btnBuscarDNI_Click(object sender, EventArgs e)
+{
+    string doc = txtDNI.Text;
+    using (IntrasevMotorsEntities db = new IntrasevMotorsEntities())
+    {
+        var consulta = from c in db.Cliente
+                      where c.DNI_RUC == doc
+                      select c;
+        dgvConsulta.DataSource = consulta.ToList();
+    }
+}
+
+
+// --- CONSULTAS AVANZADAS (4) ---
+
+// 7. Total de Ventas por Cliente (GroupBy + Sum)
+private void btnVentasPorCliente_Click(object sender, EventArgs e)
+{
+    using (IntrasevMotorsEntities db = new IntrasevMotorsEntities())
+    {
+        var consulta = from v in db.Venta
+                      group v by v.Cliente.Razon_Social_Nombre into grupo
+                      select new {
+                          Cliente = grupo.Key,
+                          TotalInvertido = grupo.Sum(x => x.Total),
+                          CantidadCompras = grupo.Count()
+                      };
+        dgvConsulta.DataSource = consulta.ToList();
+    }
+}
+
+// 8. Productos más vendidos (Agrupación de Detalles > 3 tablas)
+private void btnTopProductos_Click(object sender, EventArgs e)
+{
+    using (IntrasevMotorsEntities db = new IntrasevMotorsEntities())
+    {
+        var consulta = from d in db.Detalle_Venta
+                      group d by d.Producto.Nombre_Producto into grupo
+                      select new {
+                          Producto = grupo.Key,
+                          TotalVendido = grupo.Sum(x => x.Cantidad)
+                      };
+        dgvConsulta.DataSource = consulta.OrderByDescending(x => x.TotalVendido).ToList();
+    }
+}
+
+// 9. Reporte de Ventas por Mes y Año (Cálculos estadísticos)
+private void btnVentasMensuales_Click(object sender, EventArgs e)
+{
+    using (IntrasevMotorsEntities db = new IntrasevMotorsEntities())
+    {
+        var consulta = from v in db.Venta
+                      group v by new { v.Fecha_Venta.Month, v.Fecha_Venta.Year } into grupo
+                      select new {
+                          Mes = grupo.Key.Month,
+                          Anio = grupo.Key.Year,
+                          IngresoMensual = grupo.Sum(x => x.Total)
+                      };
+        dgvConsulta.DataSource = consulta.ToList();
+    }
+}
+
+// 10. Empleados con más ventas realizadas (Proyección anónima compleja)
+private void btnRankingVendedores_Click(object sender, EventArgs e)
+{
+    using (IntrasevMotorsEntities db = new IntrasevMotorsEntities())
+    {
+        var consulta = from v in db.Venta
+                      group v by v.Empleado.Nombre_Completo into grupo
+                      select new {
+                          Vendedor = grupo.Key,
+                          VentasRealizadas = grupo.Count(),
+                          MontoTotal = grupo.Sum(x => x.Total)
+                      };
+        dgvConsulta.DataSource = consulta.OrderByDescending(x => x.MontoTotal).ToList();
+    }
+}
