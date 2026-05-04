@@ -22,4 +22,4 @@ IntrasevMotors es un sistema de escritorio orientado a la gestion integral de ve
 
 ## Enlaces
 * **Repositorio**: [https://github.com/Enrique-024100691i/64-BITIS](https://github.com/Enrique-024100691i/64-BITIS) 
-* Infografia**: [https://024100235c-ai.github.io/infografiapage/](https://024100235c-ai.github.io/infografiapage/)
+* Infografia**: [https://024100235c-ai.github.io/infografia2.4/ /)
