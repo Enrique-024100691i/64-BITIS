@@ -3,186 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infografía: Procedimientos Almacenados en Oracle</title>
-    <!-- Tailwind CSS -->
+    <title>Infografía: Oracle Stored Procedures - Intrasev Motors</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome para Iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
+            background: #f0f2f5;
         }
-        .gradient-text {
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #3b82f6;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
-<body class="text-slate-800 antialiased selection:bg-red-200 selection:text-red-900">
+<body class="p-4 md:p-8">
 
-    <main class="max-w-5xl mx-auto my-8 p-4 sm:p-6 lg:p-8">
+    <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
         
-        <!-- ENCABEZADO -->
-        <header class="bg-gradient-to-r from-red-600 to-red-800 rounded-3xl shadow-2xl p-8 md:p-12 mb-12 text-center text-white relative overflow-hidden">
-            <div class="absolute top-0 right-0 -mt-10 -mr-10 text-white opacity-10 text-9xl">
-                <i class="fas fa-database"></i>
+        <!-- Header -->
+        <header class="gradient-bg text-white p-8 text-center">
+            <div class="flex justify-center mb-4">
+                <i class="fas fa-database text-5xl"></i>
             </div>
-            <p class="text-red-200 font-semibold tracking-wider uppercase text-sm mb-2">Universidad Andina del Cusco</p>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
-                Procedimientos Almacenados en <span class="text-white">Oracle</span>
-            </h1>
-            <p class="text-lg md:text-xl text-red-100 max-w-2xl mx-auto">
-                Análisis, diseño e implementación para la optimización de base de datos en el caso <strong>Intrasev Motors</strong>.
-            </p>
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">Procedimientos Almacenados en Oracle</h1>
+            <p class="text-blue-100 text-lg">Caso de Estudio: Intrasev Motors</p>
+            <div class="mt-4 flex flex-wrap justify-center gap-4 text-sm opacity-90">
+                <span><i class="fas fa-university mr-2"></i>Univ. Andina del Cusco</span>
+                <span><i class="fas fa-users mr-2"></i>Grupo 64 bits</span>
+            </div>
         </header>
 
-        <!-- SECCIÓN 1: CONTEXTO -->
-        <section class="mb-12">
-            <div class="flex items-center mb-6">
-                <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl shadow-lg z-10">
-                    1
-                </div>
-                <h2 class="text-2xl font-bold ml-4 text-slate-800">Contexto del Negocio</h2>
-            </div>
-            <div class="bg-white rounded-2xl shadow-md p-6 md:p-8 ml-6 border-l-4 border-blue-500 hover:shadow-xl transition-shadow duration-300">
-                <div class="flex flex-col md:flex-row items-center gap-6">
-                    <div class="flex-1">
-                        <h3 class="text-xl font-bold text-blue-700 mb-3"><i class="fas fa-car-side mr-2"></i> ¿Qué es Intrasev Motors?</h3>
-                        <p class="text-slate-600 leading-relaxed">
-                            Una empresa enfocada en la gestión de ventas de vehículos. Requiere un sistema robusto para manejar grandes volúmenes de información, asegurar la integridad de los datos y optimizar las consultas diarias mediante un modelado adecuado y reglas de negocio estructuradas en la base de datos.
-                        </p>
-                    </div>
-                    <div class="w-full md:w-1/3 flex justify-center text-blue-200 text-8xl">
-                        <i class="fas fa-building"></i>
-                    </div>
+        <!-- Introducción & Contexto -->
+        <section class="p-8 grid md:grid-cols-2 gap-8 items-center border-b">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Contexto del Proyecto</h2>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    <strong>Intrasev Motors</strong> es una empresa dedicada a la venta de repuestos de vehículos que busca optimizar la gestión de su información mediante el uso de bases de datos relacionales en Oracle.
+                </p>
+                <div class="bg-blue-50 p-4 rounded-xl">
+                    <h3 class="font-semibold text-blue-800 mb-2 underline">Objetivo Principal:</h3>
+                    <p class="text-sm text-blue-700 italic">"Implementar procedimientos almacenados para centralizar la lógica del negocio, mejorar la seguridad y automatizar tareas críticas en el Datacenter."</p>
                 </div>
             </div>
-        </section>
-
-        <!-- SECCIÓN 2: DISEÑO DE BASE DE DATOS -->
-        <section class="mb-12">
-            <div class="flex items-center mb-6">
-                <div class="bg-emerald-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl shadow-lg z-10">
-                    2
-                </div>
-                <h2 class="text-2xl font-bold ml-4 text-slate-800">Fase de Diseño y Modelado</h2>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 ml-6">
-                <!-- Card 1 -->
-                <div class="bg-white rounded-2xl shadow-md p-6 border-t-4 border-emerald-400 hover:-translate-y-1 transition-transform duration-300">
-                    <div class="text-emerald-500 text-3xl mb-4">
-                        <i class="fas fa-table-list"></i>
-                    </div>
-                    <h3 class="text-lg font-bold mb-2">Entidades y Atributos</h3>
-                    <p class="text-slate-600 text-sm">
-                        Identificación precisa de las entidades principales del negocio (Ej. Clientes, Vehículos, Ventas) y sus atributos correspondientes para normalizar la estructura de datos.
-                    </p>
-                </div>
-                <!-- Card 2 -->
-                <div class="bg-white rounded-2xl shadow-md p-6 border-t-4 border-emerald-400 hover:-translate-y-1 transition-transform duration-300">
-                    <div class="text-emerald-500 text-3xl mb-4">
-                        <i class="fas fa-project-diagram"></i>
-                    </div>
-                    <h3 class="text-lg font-bold mb-2">Relaciones y Cardinalidad</h3>
-                    <p class="text-slate-600 text-sm">
-                        Definición de cómo interactúan las entidades entre sí (1:1, 1:N, N:M) para mantener la integridad referencial y reflejar la realidad de las operaciones de venta.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN 3: ESCENARIOS PRÁCTICOS -->
-        <section class="mb-12">
-            <div class="flex items-center mb-6">
-                <div class="bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl shadow-lg z-10">
-                    3
-                </div>
-                <h2 class="text-2xl font-bold ml-4 text-slate-800">Escenarios Prácticos en el Datacenter</h2>
-            </div>
-            
-            <div class="bg-slate-800 text-white rounded-3xl shadow-xl overflow-hidden ml-6">
-                <div class="p-8">
-                    <p class="text-slate-300 mb-8 text-lg">
-                        La solución al planteamiento del problema se aborda mediante la creación de <strong>Procedimientos Almacenados (Stored Procedures)</strong> en Oracle para automatizar y asegurar operaciones críticas:
-                    </p>
-
-                    <div class="space-y-6">
-                        <!-- Escenario A -->
-                        <div class="bg-slate-700/50 rounded-xl p-6 flex flex-col sm:flex-row gap-6 items-start border border-slate-600">
-                            <div class="bg-purple-500 text-white p-4 rounded-lg text-2xl">
-                                <i class="fas fa-user-shield"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-purple-300 mb-2">a) Registro Controlado de Clientes</h3>
-                                <p class="text-slate-300 text-sm">
-                                    Procedimiento diseñado para validar y registrar la información de nuevos clientes de forma segura. Evita duplicidad de datos, maneja excepciones y asegura que los registros cumplan con las reglas de negocio antes de ser insertados en la base de datos.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Escenario B -->
-                        <div class="bg-slate-700/50 rounded-xl p-6 flex flex-col sm:flex-row gap-6 items-start border border-slate-600">
-                            <div class="bg-pink-500 text-white p-4 rounded-lg text-2xl">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-pink-300 mb-2">b) Consulta Rápida de Ventas</h3>
-                                <p class="text-slate-300 text-sm">
-                                    Procedimiento optimizado para extraer reportes y métricas de ventas. Reduce el tráfico de red procesando la consulta en el servidor (Datacenter) y retornando únicamente los resultados consolidados a las aplicaciones cliente.
-                                </p>
-                            </div>
-                        </div>
+            <div class="flex justify-center">
+                <div class="relative w-full max-w-sm">
+                    <div class="absolute top-0 -left-4 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+                    <div class="absolute top-0 -right-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+                    <div class="relative bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                        <h4 class="font-bold text-center mb-4">Entidades Clave</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-center text-gray-700"><i class="fas fa-id-card text-blue-500 mr-3"></i> Clientes</li>
+                            <li class="flex items-center text-gray-700"><i class="fas fa-box text-blue-500 mr-3"></i> Productos (Repuestos)</li>
+                            <li class="flex items-center text-gray-700"><i class="fas fa-shopping-cart text-blue-500 mr-3"></i> Ventas</li>
+                            <li class="flex items-center text-gray-700"><i class="fas fa-user-tie text-blue-500 mr-3"></i> Personal de Ventas</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN 4: RECOMENDACIONES -->
-        <section class="mb-12">
-            <div class="flex items-center mb-6">
-                <div class="bg-amber-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl shadow-lg z-10">
-                    4
-                </div>
-                <h2 class="text-2xl font-bold ml-4 text-slate-800">Recomendaciones y Futuro</h2>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ml-6">
-                <!-- Rec 1 -->
-                <div class="bg-white rounded-xl shadow p-6 border-b-4 border-amber-400 text-center">
-                    <i class="fab fa-java text-4xl text-amber-500 mb-4"></i>
-                    <i class="fab fa-windows text-4xl text-amber-500 mb-4 ml-2"></i>
-                    <h3 class="font-bold mb-2 text-slate-800">Desarrollo de Interfaz</h3>
-                    <p class="text-sm text-slate-600">Implementar una interfaz gráfica en lenguajes como <strong>Java o C#</strong> que consuma los procedimientos almacenados, brindando un uso intuitivo al personal de ventas.</p>
-                </div>
+        <!-- Escenarios Prácticos -->
+        <section class="p-8 bg-gray-50">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-10">Escenarios en el Datacenter</h2>
+            <div class="grid md:grid-cols-3 gap-6">
                 
-                <!-- Rec 2 -->
-                <div class="bg-white rounded-xl shadow p-6 border-b-4 border-amber-400 text-center">
-                    <i class="fas fa-server text-4xl text-amber-500 mb-4"></i>
-                    <h3 class="font-bold mb-2 text-slate-800">Mantenimiento Preventivo</h3>
-                    <p class="text-sm text-slate-600">Dada la alta valoración de los activos, se debe ejecutar un mantenimiento constante en el servidor Oracle para garantizar la continuidad del negocio.</p>
+                <!-- Escenario 1 -->
+                <div class="bg-white p-6 rounded-2xl shadow-md card-hover border-t-4 border-green-500">
+                    <div class="step-number bg-green-500">1</div>
+                    <h3 class="font-bold text-lg mb-2">Registro de Clientes</h3>
+                    <p class="text-sm text-gray-600">Validación de datos de entrada antes de la inserción para asegurar la integridad de los contactos de ventas.</p>
+                    <div class="mt-4 text-xs font-mono bg-gray-100 p-2 rounded">
+                        PROCEDURE registrar_cliente(...)
+                    </div>
                 </div>
 
-                <!-- Rec 3 -->
-                <div class="bg-white rounded-xl shadow p-6 border-b-4 border-amber-400 text-center">
-                    <i class="fas fa-cloud-arrow-up text-4xl text-amber-500 mb-4"></i>
-                    <h3 class="font-bold mb-2 text-slate-800">Copias de Seguridad</h3>
-                    <p class="text-sm text-slate-600">Establecer un plan automatizado de <strong>Backups</strong> para garantizar la disponibilidad permanente de la información ante contingencias técnicas.</p>
+                <!-- Escenario 2 -->
+                <div class="bg-white p-6 rounded-2xl shadow-md card-hover border-t-4 border-orange-500">
+                    <div class="step-number bg-orange-500">2</div>
+                    <h3 class="font-bold text-lg mb-2">Consulta de Ventas</h3>
+                    <p class="text-sm text-gray-600">Extracción rápida de reportes históricos para que los gerentes tomen decisiones basadas en datos reales.</p>
+                    <div class="mt-4 text-xs font-mono bg-gray-100 p-2 rounded">
+                        PROCEDURE consultar_ventas(...)
+                    </div>
+                </div>
+
+                <!-- Escenario 3 -->
+                <div class="bg-white p-6 rounded-2xl shadow-md card-hover border-t-4 border-purple-500">
+                    <div class="step-number bg-purple-500">3</div>
+                    <h3 class="font-bold text-lg mb-2">Gestión de Stock</h3>
+                    <p class="text-sm text-gray-600">Actualización automática del inventario tras cada transacción, evitando sobreventa de repuestos.</p>
+                    <div class="mt-4 text-xs font-mono bg-gray-100 p-2 rounded">
+                        PROCEDURE actualizar_stock(...)
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Beneficios Técnicos -->
+        <section class="p-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-8 border-l-4 border-blue-600 pl-3">¿Por qué usar Stored Procedures?</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div class="p-4">
+                    <i class="fas fa-shield-alt text-4xl text-blue-600 mb-3"></i>
+                    <h4 class="font-semibold">Seguridad</h4>
+                    <p class="text-xs text-gray-500 mt-1">Evita SQL Injection y oculta la estructura de tablas.</p>
+                </div>
+                <div class="p-4">
+                    <i class="fas fa-bolt text-4xl text-yellow-500 mb-3"></i>
+                    <h4 class="font-semibold">Rendimiento</h4>
+                    <p class="text-xs text-gray-500 mt-1">Reduce el tráfico de red enviando solo una llamada.</p>
+                </div>
+                <div class="p-4">
+                    <i class="fas fa-sync text-4xl text-green-600 mb-3"></i>
+                    <h4 class="font-semibold">Integridad</h4>
+                    <p class="text-xs text-gray-500 mt-1">Centraliza las reglas de negocio en un solo lugar.</p>
+                </div>
+                <div class="p-4">
+                    <i class="fas fa-code-branch text-4xl text-purple-600 mb-3"></i>
+                    <h4 class="font-semibold">Mantenimiento</h4>
+                    <p class="text-xs text-gray-500 mt-1">Cambios en la lógica no requieren recompilar el frontend.</p>
                 </div>
             </div>
         </section>
 
-        <!-- FOOTER -->
-        <footer class="mt-16 text-center text-slate-500 text-sm border-t border-slate-200 pt-8">
-            <p>Infografía generada a partir del documento: <em>Taller 2.1 Procedimiento Almacenados en Oracle</em>.</p>
-            <p class="mt-1">Autores del documento original: Triveños Llaccta, Surcos Alvarez, Mariño Chauca, Zavaleta Fuentes.</p>
+        <!-- Conclusión & Recomendaciones -->
+        <footer class="bg-gray-800 text-gray-200 p-8">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-white font-bold mb-3 flex items-center">
+                        <i class="fas fa-check-circle mr-2 text-green-400"></i> Conclusiones
+                    </h3>
+                    <p class="text-sm leading-relaxed opacity-80">
+                        La implementación de PL/SQL en Intrasev Motors garantiza un entorno robusto y escalable. Se logró optimizar las operaciones de ventas y el control riguroso del inventario de repuestos.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-3 flex items-center">
+                        <i class="fas fa-lightbulb mr-2 text-yellow-400"></i> Recomendaciones
+                    </h3>
+                    <ul class="text-sm space-y-1 opacity-80 list-disc pl-5">
+                        <li>Implementar un plan de copias de seguridad automatizadas.</li>
+                        <li>Desarrollar un Frontend (Java/C#) para el personal de ventas.</li>
+                        <li>Realizar mantenimiento preventivo periódico al servidor Oracle.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-700 text-center text-xs opacity-60">
+                © 2026 Taller de Base de Datos - Escuela Profesional de Ingeniería de Sistemas
+            </div>
         </footer>
 
-    </main>
+    </div>
 
 </body>
 </html>
