@@ -1,1 +1,468 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
+namespace proyecto
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            {
+                using (pubsEntities pubs = new pubsEntities())
+                {
+                    var consulta = from E in pubs.employees
+                                   from J in pubs.jobs
+                                   select new
+                                   {
+                                       Empleado = E.fname + " " + E.lname,
+                                       Trabajo = J.job_desc,
+                                       J.min_lvl
+                                   };
+
+                    dgvPubs.DataSource = consulta.ToList();
+                }
+            }
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            {
+                using (pubsEntities pubs = new pubsEntities())
+                {
+                    var consulta = from S in pubs.stores
+                                   from P in pubs.publishers
+                                   select new
+                                   {
+                                       S.stor_name,
+                                       Publisher = P.pub_name,
+                                       S.city
+                                   };
+
+                    dgvPubs.DataSource = consulta.ToList();
+                }
+            }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            {
+                using (pubsEntities pubs = new pubsEntities())
+                {
+                    var consulta = from A in pubs.authors
+                                   from T in pubs.titles
+                                   select new
+                                   {
+                                       Autor = A.au_fname + " " + A.au_lname,
+                                       Libro = T.title1,
+                                       T.type
+                                   };
+
+                    dgvPubs.DataSource = consulta.ToList();
+                }
+            }
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            {
+                using (pubsEntities pubs = new pubsEntities())
+                {
+                    var consulta1 = from S in pubs.sales
+                                    where S.qty > 20
+                                    select S;
+
+                    var consulta2 = from S in pubs.sales
+                                    where S.payterms == "Net 30"
+                                    select S;
+
+                    var consulta = consulta1.Except(consulta2);
+
+                    dgvPubs.DataSource = consulta
+                        .Select(S => new
+                        {
+                            S.stor_id,
+                            S.ord_num,
+                            S.qty,
+                            S.payterms
+                        })
+                        .ToList();
+                }
+            }
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            {
+                using (pubsEntities pubs = new pubsEntities())
+                {
+                    var consulta1 = from T in pubs.titles
+                                    where T.type == "business"
+                                    select T;
+
+                    var consulta2 = from T in pubs.titles
+                                    where T.price > 15
+                                    select T;
+
+                    var consulta = consulta1.Except(consulta2);
+
+                    dgvPubs.DataSource = consulta
+                        .Select(T => new
+                        {
+                            T.title_id,
+                            T.title1,
+                            T.type,
+                            T.price
+                        })
+                        .ToList();
+                }
+            }
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            {
+                using (pubsEntities pubs = new pubsEntities())
+                {
+                    var consulta1 = from A in pubs.authors
+                                    where A.state == "CA"
+                                    select A;
+
+                    var consulta2 = from A in pubs.authors
+                                    where A.city == "Oakland"
+                                    select A;
+
+                    var consulta = consulta1.Except(consulta2);
+
+                    dgvPubs.DataSource = consulta
+                        .Select(A => new
+                        {
+                            A.au_id,
+                            Nombre = A.au_fname + " " + A.au_lname,
+                            A.city,
+                            A.state
+                        })
+                        .ToList();
+                }
+            }
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            {
+                using (pubsEntities pubs = new pubsEntities())
+                {
+                    var consulta1 = from T in pubs.titles
+                                    where T.type == "business"
+                                    select new
+                                    {
+                                        T.title_id,
+                                        T.title1,
+                                        T.type,
+                                        T.price
+                                    };
+
+                    var consulta2 = from T in pubs.titles
+                                    where T.type == "psychology"
+                                    select new
+                                    {
+                                        T.title_id,
+                                        T.title1,
+                                        T.type,
+                                        T.price
+                                    };
+
+                    var consulta = consulta1.Union(consulta2);
+
+                    dgvPubs.DataSource = consulta.ToList();
+                }
+            }
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            {
+                using (pubsEntities pubs = new pubsEntities())
+                {
+                    var consulta1 = from S in pubs.stores
+                                    where S.state == "CA"
+                                    select new
+                                    {
+                                        S.stor_id,
+                                        S.stor_name,
+                                        S.city,
+                                        S.state
+                                    };
+
+                    var consulta2 = from S in pubs.stores
+                                    where S.state == "WA"
+                                    select new
+                                    {
+                                        S.stor_id,
+                                        S.stor_name,
+                                        S.city,
+                                        S.state
+                                    };
+
+                    var consulta = consulta1.Union(consulta2);
+
+                    dgvPubs.DataSource = consulta.ToList();
+                }
+            }
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            {
+                using (pubsEntities pubs = new pubsEntities())
+                {
+                    // Autores de CA
+                    var consulta1 = from A in pubs.authors
+                                    where A.state == "CA"
+                                    select new
+                                    {
+                                        A.au_id,
+                                        Nombre = A.au_fname + " " + A.au_lname,
+                                        A.city,
+                                        A.state
+                                    };
+
+                    // Autores de UT
+                    var consulta2 = from A in pubs.authors
+                                    where A.state == "UT"
+                                    select new
+                                    {
+                                        A.au_id,
+                                        Nombre = A.au_fname + " " + A.au_lname,
+                                        A.city,
+                                        A.state
+                                    };
+
+                    // UNION
+                    var consulta = consulta1.Union(consulta2);
+
+                    dgvPubs.DataSource = consulta.ToList();
+                }
+            }
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPublishers_Click(object sender, EventArgs e)
+        {
+            {
+                // Selección por comparación
+                using (pubsEntities pubs = new pubsEntities())
+                {
+                    var consulta = from p in pubs.publishers
+                                   where p.state == "CA"
+                                   select new
+                                   {
+                                       p.pub_id,
+                                       p.pub_name,
+                                       p.city,
+                                       p.state
+                                   };
+
+                    dgvPubs.DataSource = consulta.ToList();
+                }
+
+            }
+        }
+
+        private void btnTitles_Click(object sender, EventArgs e)
+        {
+            // Selección por rango
+            using (pubsEntities pubs = new pubsEntities())
+            {
+                var consulta = from t in pubs.titles
+                               where t.price >= 10 && t.price <= 20
+                               select new
+                               {
+                                   t.title_id,
+                                   t.title1,
+                                   t.type,
+                                   t.price
+                               };
+
+                dgvPubs.DataSource = consulta.ToList();
+            }
+        }
+
+        private void btnEmployee_Click(object sender, EventArgs e)
+        {
+            // Selección por pertenencia
+            using (pubsEntities pubs = new pubsEntities())
+            {
+                var consulta = from e1 in pubs.employees
+                               where e1.job_lvl == 100 || e1.job_lvl == 200
+                               select new
+                               {
+                                   e1.emp_id,
+                                   e1.fname,
+                                   e1.lname,
+                                   e1.job_lvl
+                               };
+
+                dgvPubs.DataSource = consulta.ToList();
+            }
+        }
+
+        private void btnAuthors_Click(object sender, EventArgs e)
+        {
+            {
+                // Proyección de atributos
+                using (pubsEntities pubs = new pubsEntities())
+                {
+                    var consulta = from a in pubs.authors
+                                   select new
+                                   {
+                                       a.au_id,
+                                       a.au_lname,
+                                       a.au_fname,
+                                       a.city
+                                   };
+
+                    dgvPubs.DataSource = consulta.ToList();
+                }
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            // Proyección de columnas
+            using (pubsEntities pubs = new pubsEntities())
+            {
+                var consulta = from s in pubs.stores
+                               select new
+                               {
+                                   s.stor_id,
+                                   s.stor_name,
+                                   s.city,
+                                   s.state
+                               };
+
+                dgvPubs.DataSource = consulta.ToList();
+            }
+        }
+
+        private void btnJobs_Click(object sender, EventArgs e)
+        {
+            {
+                // Proyección de atributos
+                using (pubsEntities pubs = new pubsEntities())
+                {
+                    var consulta = from j in pubs.jobs
+                                   select new
+                                   {
+                                       j.job_id,
+                                       j.job_desc,
+                                       j.min_lvl,
+                                       j.max_lvl
+                                   };
+
+                    dgvPubs.DataSource = consulta.ToList();
+                }
+            }
+        }
+
+        private void btnTitlesRenom_Click(object sender, EventArgs e)
+        {
+            {
+                // Renombramiento de atributos
+                using (pubsEntities pubs = new pubsEntities())
+                {
+                    var consulta = from t in pubs.titles
+                                   select new
+                                   {
+                                       Codigo = t.title_id,
+                                       Libro = t.title1,
+                                       Categoria = t.type,
+                                       Precio = t.price
+                                   };
+
+                    dgvPubs.DataSource = consulta.ToList();
+                }
+            }
+        }
+
+        private void btnEmployeeRenom_Click(object sender, EventArgs e)
+        {
+            {
+                // Renombramiento de columnas
+                using (pubsEntities pubs = new pubsEntities())
+                {
+                    var consulta = from e1 in pubs.employees
+                                   select new
+                                   {
+                                       CodigoEmpleado = e1.emp_id,
+                                       Nombre = e1.fname,
+                                       Apellido = e1.lname,
+                                       NivelTrabajo = e1.job_lvl
+                                   };
+
+                    dgvPubs.DataSource = consulta.ToList();
+                }
+            }
+        }
+
+        private void btnSalesRenom_Click(object sender, EventArgs e)
+        {
+            {
+                // Renombramiento de atributos
+                using (pubsEntities pubs = new pubsEntities())
+                {
+                    var consulta = from s in pubs.sales
+                                   select new
+                                   {
+                                       NumeroOrden = s.ord_num,
+                                       CodigoTienda = s.stor_id,
+                                       CodigoTitulo = s.title_id,
+                                       CantidadVendida = s.qty
+                                   };
+
+                    dgvPubs.DataSource = consulta.ToList();
+                }
+            }
+        }
+    }
+}
