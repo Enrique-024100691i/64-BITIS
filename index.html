@@ -1,461 +1,398 @@
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infografia Interactiva: Àlgebra Relacional</title>
-    <!-- Tailwind CSS per a un disseny modern i adaptable -->
+    <title>Taller 3.2: Laboratorio de Álgebra Relacional</title>
+    <!-- Tailwind CSS para el diseño responsive de alto impacto -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- MathJax per renderitzar fórmules matemàtiques de manera impecable -->
+    <!-- MathJax para el formateo matemático de LaTeX en el navegador -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <!-- Lucide Icons per a la iconografia neta -->
+    <!-- Lucide Icons para la interfaz de usuario moderna -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
         body {
             font-family: 'Inter', sans-serif;
         }
-        .code-font {
+        .mono-font {
             font-family: 'Fira Code', monospace;
         }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white">
+<body class="bg-[#0d1117] text-[#c9d1d9] min-h-screen selection:bg-sky-500 selection:text-white flex flex-col justify-between">
 
-    <!-- Capçalera Principal (Estil Banner de GitHub de gran qualitat) -->
-    <header class="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-900 border-b border-slate-800 py-16 px-4 sm:px-6 lg:px-8">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(99,102,241,0.15),transparent_50%)]"></div>
-        <div class="max-w-6xl mx-auto relative z-10 text-center">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-6">
-                <i data-lucide="database" class="w-4 h-4"></i> Taller 3.2 • Àlgebra Relacional
-            </div>
-            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-400 bg-clip-text text-transparent mb-4">
-                Àlgebra Relacional
-            </h1>
-            <p class="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto font-light leading-relaxed">
-                Una guia visual i interactiva de les operacions unàries i binàries fonamentals per al disseny i la manipulació de bases de dades relacionals (PUBS & NORTHWIND).
-            </p>
-            
-            <!-- Targeta acadèmica de crèdits -->
-            <div class="mt-8 inline-grid grid-cols-1 sm:grid-cols-2 gap-4 text-left bg-slate-950/60 backdrop-blur-md border border-slate-850 p-4 rounded-xl max-w-2xl mx-auto text-xs text-slate-400">
+    <!-- Navegación y Encabezado estilo GitHub Header -->
+    <nav class="bg-[#161b22] border-b border-[#30363d] py-4 px-6 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <i data-lucide="github" class="w-8 h-8 text-white"></i>
+                <div class="h-6 w-[1px] bg-[#30363d] hidden sm:block"></div>
                 <div>
-                    <span class="text-indigo-400 font-semibold block mb-1">Institució:</span>
-                    Universidad Andina del Cusco<br>Escola d'Enginyeria de Sistemes
+                    <span class="text-xs text-[#8b949e] block font-mono">UNIVERSIDAD ANDINA DEL CUSCO</span>
+                    <h1 class="text-sm font-bold text-white flex items-center gap-1.5">
+                        Taller 3.2: Álgebra Relacional 
+                        <span class="bg-sky-500/10 text-sky-400 border border-sky-500/30 text-[10px] px-2 py-0.2 rounded-full font-mono">v2.0</span>
+                    </h1>
                 </div>
-                <div>
-                    <span class="text-indigo-400 font-semibold block mb-1">Autors (Grup 64 bits):</span>
-                    R. Triveños, Y. Surcos, J. Mariño, P. Zavaleta
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+                <span class="text-[#8b949e]">Desarrollado por:</span>
+                <span class="bg-[#21262d] text-[#c9d1d9] border border-[#30363d] px-2.5 py-1 rounded-md font-mono font-semibold">Grup 64 bits</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow">
+        
+        <!-- Banner del Repositorio Académico -->
+        <div class="bg-[#161b22] border border-[#30363d] rounded-2xl p-6 sm:p-8 mb-10 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-6 opacity-5 pointer-events-none">
+                <i data-lucide="database" class="w-48 h-48 text-white"></i>
+            </div>
+            <div class="relative z-10 max-w-3xl">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-4">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Listo para GitHub Pages
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2">
+                    Laboratorio de Pruebas y Consultas Algebraicas
+                </h2>
+                <p class="text-sm text-[#8b949e] leading-relaxed mb-6">
+                    Esta herramienta interactiva permite simular la ejecución de operadores del álgebra relacional sobre conjuntos de datos reales del taller, cubriendo la manipulación unaria y binaria planteada en los esquemas <strong>PUBS</strong> y <strong>NORTHWIND</strong>.
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="#modulo-ejercicios" class="bg-[#21262d] hover:bg-[#30363d] text-white border border-[#30363d] px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all">
+                        <i data-lucide="list-checks" class="w-4 h-4 text-sky-400"></i> Ver Ejercicios del Taller
+                    </a>
+                    <a href="#modulo-playground" class="bg-sky-600 hover:bg-sky-500 text-white px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all">
+                        <i data-lucide="terminal" class="w-4 h-4"></i> Probar Constructor Libre
+                    </a>
                 </div>
             </div>
         </div>
-    </header>
 
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
-        <!-- Secció de Navegació de l'Infografia -->
-        <div class="flex flex-wrap justify-center gap-4 mb-12">
-            <a href="#unaries" class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium shadow-lg shadow-indigo-500/20 transition-all duration-200">
-                <i data-lucide="arrow-right-left" class="w-4 h-4"></i> Operacions Unàries
-            </a>
-            <a href="#binaries" class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium shadow-lg shadow-emerald-500/20 transition-all duration-200">
-                <i data-lucide="git-merge" class="w-4 h-4"></i> Operacions Binàries
-            </a>
-            <a href="#simulador" class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-pink-600 hover:bg-pink-500 text-white font-medium shadow-lg shadow-pink-500/20 transition-all duration-200">
-                <i data-lucide="play" class="w-4 h-4"></i> Simulador Interactiu
-            </a>
-        </div>
-
-        <!-- SECCIÓ 1: OPERACIONS UNÀRIES -->
-        <section id="unaries" class="mb-20 scroll-mt-6">
-            <div class="border-l-4 border-indigo-500 pl-4 mb-8">
-                <h2 class="text-3xl font-bold tracking-tight text-white">1. Operacions Unàries</h2>
-                <p class="text-slate-400 mt-1">S'apliquen sobre una única relació (taula) per filtrar o transformar la seva estructura.</p>
+        <!-- SECCIÓN DE EJERCICIOS RESUELTOS DEL TALLER -->
+        <section id="modulo-ejercicios" class="mb-14">
+            <div class="flex items-center gap-2.5 mb-6">
+                <i data-lucide="book-open" class="w-6 h-6 text-indigo-400"></i>
+                <h3 class="text-xl font-bold text-white">Ejercicios Oficiales del Informe</h3>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- SELECCIÓ -->
-                <div class="bg-slate-950/40 border border-slate-800 rounded-2xl p-6 hover:border-indigo-500/40 transition-all duration-300 flex flex-col justify-between">
+            <!-- Grid de Ejercicios -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Ejercicio 1: Selección Unaria -->
+                <div class="bg-[#161b22] border border-[#30363d] rounded-xl p-5 flex flex-col justify-between hover:border-[#8b949e]/30 transition-all">
                     <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="p-3 bg-indigo-500/10 text-indigo-400 rounded-xl font-mono text-xl font-bold">\(\sigma\)</span>
-                            <span class="text-xs font-semibold tracking-wider text-indigo-400 bg-indigo-950 px-2.5 py-1 rounded-full uppercase">Selecció</span>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-mono font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded">PUBS - UNARIA</span>
+                            <span class="text-xs font-semibold text-[#8b949e]">Ejercicio #1</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-2">Selecció (<span class="text-indigo-400">\(\sigma\)</span>)</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Filtra les files d'una relació que compleixen una condició lógica específica. Redueix la taula verticalment sense alterar les columnes.
-                        </p>
-                        <div class="bg-slate-900/80 rounded-lg p-3 border border-slate-800 text-xs font-mono text-slate-300 mb-4">
-                            <span class="text-indigo-400 font-semibold">Fórmula:</span> \(\sigma_{\text{condició}}(R)\)
+                        <h4 class="font-bold text-white mb-1">Filtrar Libros por Precio</h4>
+                        <p class="text-xs text-[#8b949e] mb-4">Selecciona todos los títulos de libros de la editorial cuyo precio de venta sea estrictamente mayor a $20.00.</p>
+                        <div class="bg-[#0d1117] p-2.5 rounded border border-[#30363d] mb-4 text-xs font-mono">
+                            <span class="text-indigo-400 font-semibold">Álgebra:</span> \(\sigma_{\text{Precio} > 20}(\text{Titles})\)
                         </div>
                     </div>
-                    <!-- Exemple interactiu visual -->
-                    <div class="bg-slate-900/40 p-3 rounded-lg border border-slate-800/60">
-                        <span class="text-xs text-indigo-300 font-semibold block mb-2">Exemple Visual:</span>
-                        <div class="grid grid-cols-3 gap-1 text-[10px] text-center font-mono">
-                            <div class="bg-indigo-500/20 p-1 rounded border border-indigo-500/30 text-indigo-300">ID</div>
-                            <div class="bg-indigo-500/20 p-1 rounded border border-indigo-500/30 text-indigo-300">NOM</div>
-                            <div class="bg-indigo-500/20 p-1 rounded border border-indigo-500/30 text-indigo-300">EDAT</div>
-                            <div class="bg-slate-850 p-1 rounded text-slate-500 line-through">1</div>
-                            <div class="bg-slate-850 p-1 rounded text-slate-500 line-through">Joan</div>
-                            <div class="bg-slate-850 p-1 rounded text-slate-500 line-through">17</div>
-                            <div class="bg-emerald-500/20 p-1 rounded border border-emerald-500/30 text-emerald-300">2</div>
-                            <div class="bg-emerald-500/20 p-1 rounded border border-emerald-500/30 text-emerald-300">Ana</div>
-                            <div class="bg-emerald-500/20 p-1 rounded border border-emerald-500/30 text-emerald-300">24</div>
-                        </div>
-                        <span class="text-[9px] text-slate-500 mt-2 block text-right">Condició: Edat > 18</span>
-                    </div>
+                    <button onclick="loadExercise('pubs', 'select', 0)" class="w-full bg-[#21262d] hover:bg-[#30363d] text-white border border-[#30363d] text-xs py-2 rounded-md font-semibold flex items-center justify-center gap-1 transition-all">
+                        <i data-lucide="play" class="w-3.5 h-3.5"></i> Ejecutar Ejercicio
+                    </button>
                 </div>
 
-                <!-- PROJECCIÓ -->
-                <div class="bg-slate-950/40 border border-slate-800 rounded-2xl p-6 hover:border-indigo-500/40 transition-all duration-300 flex flex-col justify-between">
+                <!-- Ejercicio 2: Proyección Unaria -->
+                <div class="bg-[#161b22] border border-[#30363d] rounded-xl p-5 flex flex-col justify-between hover:border-[#8b949e]/30 transition-all">
                     <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="p-3 bg-violet-500/10 text-violet-400 rounded-xl font-mono text-xl font-bold">\(\pi\)</span>
-                            <span class="text-xs font-semibold tracking-wider text-violet-400 bg-violet-950 px-2.5 py-1 rounded-full uppercase">Projecció</span>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-mono font-bold bg-violet-500/10 text-violet-400 border border-violet-500/20 px-2 py-0.5 rounded">NORTHWIND - UNARIA</span>
+                            <span class="text-xs font-semibold text-[#8b949e]">Ejercicio #2</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-2">Projecció (<span class="text-violet-400">\(\pi\)</span>)</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Selecciona determinades columnes d'una relació i elimina les files duplicades resultants de l'eliminació d'atributs. Redueix la taula horitzontalment.
-                        </p>
-                        <div class="bg-slate-900/80 rounded-lg p-3 border border-slate-800 text-xs font-mono text-slate-300 mb-4">
-                            <span class="text-violet-400 font-semibold">Fórmula:</span> \(\pi_{A_1, A_2, \dots, A_n}(R)\)
+                        <h4 class="font-bold text-white mb-1">Proyección de Empleados</h4>
+                        <p class="text-xs text-[#8b949e] mb-4">Muestra únicamente los nombres de los empleados y las ciudades correspondientes para auditoría logística.</p>
+                        <div class="bg-[#0d1117] p-2.5 rounded border border-[#30363d] mb-4 text-xs font-mono">
+                            <span class="text-violet-400 font-semibold">Álgebra:</span> \(\pi_{\text{Nom, Ciutat}}(\text{Employees})\)
                         </div>
                     </div>
-                    <!-- Exemple interactiu visual -->
-                    <div class="bg-slate-900/40 p-3 rounded-lg border border-slate-800/60">
-                        <span class="text-xs text-violet-300 font-semibold block mb-2">Exemple Visual:</span>
-                        <div class="grid grid-cols-3 gap-1 text-[10px] text-center font-mono">
-                            <div class="bg-violet-500/20 p-1 rounded border border-violet-500/30 text-violet-300">ID</div>
-                            <div class="bg-violet-500/20 p-1 rounded border border-violet-500/30 text-violet-300">NOM</div>
-                            <div class="bg-slate-850 p-1 rounded text-slate-500 line-through">PAÍS</div>
-                            <div class="bg-violet-500/10 p-1 text-slate-300">1</div>
-                            <div class="bg-violet-500/10 p-1 text-slate-300">Pere</div>
-                            <div class="bg-slate-850 p-1 text-slate-500 line-through">ES</div>
-                        </div>
-                        <span class="text-[9px] text-slate-500 mt-2 block text-right">Només mantenim ID i NOM</span>
-                    </div>
+                    <button onclick="loadExercise('northwind', 'project', ['Nom', 'Ciutat'])" class="w-full bg-[#21262d] hover:bg-[#30363d] text-white border border-[#30363d] text-xs py-2 rounded-md font-semibold flex items-center justify-center gap-1 transition-all">
+                        <i data-lucide="play" class="w-3.5 h-3.5"></i> Ejecutar Ejercicio
+                    </button>
                 </div>
 
-                <!-- RENOMBRAMENT -->
-                <div class="bg-slate-950/40 border border-slate-800 rounded-2xl p-6 hover:border-indigo-500/40 transition-all duration-300 flex flex-col justify-between">
+                <!-- Ejercicio 3: Renombramiento -->
+                <div class="bg-[#161b22] border border-[#30363d] rounded-xl p-5 flex flex-col justify-between hover:border-[#8b949e]/30 transition-all">
                     <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="p-3 bg-pink-500/10 text-pink-400 rounded-xl font-mono text-xl font-bold">\(\rho\)</span>
-                            <span class="text-xs font-semibold tracking-wider text-pink-400 bg-pink-950 px-2.5 py-1 rounded-full uppercase">Renom</span>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-mono font-bold bg-pink-500/10 text-pink-400 border border-pink-500/20 px-2 py-0.5 rounded">PUBS - UNARIA</span>
+                            <span class="text-xs font-semibold text-[#8b949e]">Ejercicio #3</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-2">Renombrament (<span class="text-pink-400">\(\rho\)</span>)</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Permet reanomenar tant la relació sencera com els seus atributs. Molt útil per evitar col·lisions de noms en operacions de producte o unió.
-                        </p>
-                        <div class="bg-slate-900/80 rounded-lg p-3 border border-slate-800 text-xs font-mono text-slate-300 mb-4">
-                            <span class="text-pink-400 font-semibold">Fórmula:</span> \(\rho_{S(B_1, B_2, \dots, B_n)}(R)\)
+                        <h4 class="font-bold text-white mb-1">Renombrar Tabla Autores</h4>
+                        <p class="text-xs text-[#8b949e] mb-4">Renombra la relación de autores a un formato abreviado para facilitar el desarrollo de uniones complejas.</p>
+                        <div class="bg-[#0d1117] p-2.5 rounded border border-[#30363d] mb-4 text-xs font-mono">
+                            <span class="text-pink-400 font-semibold">Álgebra:</span> \(\rho_{\text{Escriptors}}(\text{Authors})\)
                         </div>
                     </div>
-                    <!-- Exemple interactiu visual -->
-                    <div class="bg-slate-900/40 p-3 rounded-lg border border-slate-800/60">
-                        <span class="text-xs text-pink-300 font-semibold block mb-2">Exemple Visual:</span>
-                        <div class="flex flex-col gap-1.5 text-xs font-mono text-slate-300">
-                            <div class="flex items-center justify-between">
-                                <span class="bg-slate-800 px-2 py-1 rounded">Autors</span>
-                                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-pink-400"></i>
-                                <span class="bg-pink-500/20 border border-pink-500/30 px-2 py-1 rounded text-pink-300">Escriptors</span>
-                            </div>
-                        </div>
-                        <span class="text-[9px] text-slate-500 mt-2 block text-right">Ideal per a consultes autònoms o JOINS</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓ 2: OPERACIONS BINÀRIES -->
-        <section id="binaries" class="mb-20 scroll-mt-6">
-            <div class="border-l-4 border-emerald-500 pl-4 mb-8">
-                <h2 class="text-3xl font-bold tracking-tight text-white">2. Operacions Binàries</h2>
-                <p class="text-slate-400 mt-1">Requereixen dues relacions compatibles (amb el mateix esquema) per dur a terme la combinació.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- UNIÓ -->
-                <div class="bg-slate-950/40 border border-slate-800 rounded-2xl p-6 hover:border-emerald-500/40 transition-all duration-300 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl font-mono text-xl font-bold">\(\cup\)</span>
-                            <span class="text-xs font-semibold tracking-wider text-emerald-400 bg-emerald-950 px-2.5 py-1 rounded-full uppercase">Unió</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2">Unió (<span class="text-emerald-400">\(\cup\)</span>)</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Combina totes les files d'ambdues taules, eliminant qualsevol duplicat que hi pugui haver. Les taules han de ser completament compatibles en el seu esquema.
-                        </p>
-                        <div class="bg-slate-900/80 rounded-lg p-3 border border-slate-800 text-xs font-mono text-slate-300 mb-4">
-                            <span class="text-emerald-400 font-semibold">Fórmula:</span> \(R \cup S\)
-                        </div>
-                    </div>
-                    <!-- Venn diagram representant unió -->
-                    <div class="bg-slate-900/40 p-3 rounded-lg border border-slate-800/60 flex flex-col items-center">
-                        <span class="text-xs text-emerald-300 font-semibold self-start mb-2">Representació Visual:</span>
-                        <div class="relative w-32 h-20 flex justify-center items-center">
-                            <div class="absolute left-4 w-12 h-12 rounded-full bg-emerald-500/40 border border-emerald-400 flex items-center justify-center text-[10px] font-bold">R</div>
-                            <div class="absolute right-4 w-12 h-12 rounded-full bg-emerald-500/40 border border-emerald-400 flex items-center justify-center text-[10px] font-bold">S</div>
-                        </div>
-                        <span class="text-[9px] text-slate-400 mt-2 block">Totes les files de R i S sense duplicats</span>
-                    </div>
+                    <button onclick="loadExercise('pubs', 'rename', 'Escriptors')" class="w-full bg-[#21262d] hover:bg-[#30363d] text-white border border-[#30363d] text-xs py-2 rounded-md font-semibold flex items-center justify-center gap-1 transition-all">
+                        <i data-lucide="play" class="w-3.5 h-3.5"></i> Ejecutar Ejercicio
+                    </button>
                 </div>
 
-                <!-- DIFERÈNCIA -->
-                <div class="bg-slate-950/40 border border-slate-800 rounded-2xl p-6 hover:border-emerald-500/40 transition-all duration-300 flex flex-col justify-between">
+                <!-- Ejercicio 4: Unión Binaria -->
+                <div class="bg-[#161b22] border border-[#30363d] rounded-xl p-5 flex flex-col justify-between hover:border-[#8b949e]/30 transition-all">
                     <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="p-3 bg-teal-500/10 text-teal-400 rounded-xl font-mono text-xl font-bold">\(-\)</span>
-                            <span class="text-xs font-semibold tracking-wider text-teal-400 bg-teal-950 px-2.5 py-1 rounded-full uppercase">Diferència</span>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded">BINARIA - COMPATIBLE</span>
+                            <span class="text-xs font-semibold text-[#8b949e]">Ejercicio #4</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-2">Diferència (<span class="text-teal-400">\(-\)</span>)</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Retorna exclusivament les files que pertanyen a la primera taula (\(R\)) i que de cap manera es troben a la segona taula (\(S\)).
-                        </p>
-                        <div class="bg-slate-900/80 rounded-lg p-3 border border-slate-800 text-xs font-mono text-slate-300 mb-4">
-                            <span class="text-teal-400 font-semibold">Fórmula:</span> \(R - S\)
+                        <h4 class="font-bold text-white mb-1">Unión de Sucursales</h4>
+                        <p class="text-xs text-[#8b949e] mb-4">Combina el conjunto de registros de empleados de la sede central con los de la sede norte eliminando duplicados.</p>
+                        <div class="bg-[#0d1117] p-2.5 rounded border border-[#30363d] mb-4 text-xs font-mono">
+                            <span class="text-emerald-400 font-semibold">Álgebra:</span> \(\text{SedeA} \cup \text{SedeB}\)
                         </div>
                     </div>
-                    <!-- Venn diagram representant diferència -->
-                    <div class="bg-slate-900/40 p-3 rounded-lg border border-slate-800/60 flex flex-col items-center">
-                        <span class="text-xs text-teal-300 font-semibold self-start mb-2">Representació Visual:</span>
-                        <div class="relative w-32 h-20 flex justify-center items-center">
-                            <div class="absolute left-4 w-12 h-12 rounded-full bg-teal-500/60 border border-teal-400 flex items-center justify-center text-[10px] font-bold z-10">R</div>
-                            <div class="absolute right-4 w-12 h-12 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-[10px] text-slate-500 font-bold">S</div>
-                        </div>
-                        <span class="text-[9px] text-slate-400 mt-2 block text-center">Només files exclusives de R</span>
-                    </div>
+                    <button onclick="runBinaryDemo('union')" class="w-full bg-[#21262d] hover:bg-[#30363d] text-white border border-[#30363d] text-xs py-2 rounded-md font-semibold flex items-center justify-center gap-1 transition-all">
+                        <i data-lucide="play" class="w-3.5 h-3.5"></i> Ejecutar Ejercicio
+                    </button>
                 </div>
 
-                <!-- PRODUCTE CARTESIÀ -->
-                <div class="bg-slate-950/40 border border-slate-800 rounded-2xl p-6 hover:border-emerald-500/40 transition-all duration-300 flex flex-col justify-between">
+                <!-- Ejercicio 5: Diferencia Binaria -->
+                <div class="bg-[#161b22] border border-[#30363d] rounded-xl p-5 flex flex-col justify-between hover:border-[#8b949e]/30 transition-all">
                     <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="p-3 bg-cyan-500/10 text-cyan-400 rounded-xl font-mono text-xl font-bold">\(\times\)</span>
-                            <span class="text-xs font-semibold tracking-wider text-cyan-400 bg-cyan-950 px-2.5 py-1 rounded-full uppercase">Producte</span>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-mono font-bold bg-teal-500/10 text-teal-400 border border-teal-500/20 px-2 py-0.5 rounded">BINARIA - DIFERENCIA</span>
+                            <span class="text-xs font-semibold text-[#8b949e]">Ejercicio #5</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-2">Producte Cartesià (<span class="text-cyan-400">\(\times\)</span>)</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Genera una nova relació combinant cadascuna de les files de la taula \(R\) amb absolutament totes les files de la taula \(S\).
-                        </p>
-                        <div class="bg-slate-900/80 rounded-lg p-3 border border-slate-800 text-xs font-mono text-slate-300 mb-4">
-                            <span class="text-cyan-400 font-semibold">Fórmula:</span> \(R \times S\)
+                        <h4 class="font-bold text-white mb-1">Diferencia de Catálogo</h4>
+                        <p class="text-xs text-[#8b949e] mb-4">Obtén la lista de libros disponibles en la sede A que no han sido registrados en el stock de la sede B.</p>
+                        <div class="bg-[#0d1117] p-2.5 rounded border border-[#30363d] mb-4 text-xs font-mono">
+                            <span class="text-teal-400 font-semibold">Álgebra:</span> \(\text{SedeA} - \text{SedeB}\)
                         </div>
                     </div>
-                    <!-- Producte Cartesià representació de combinatòria -->
-                    <div class="bg-slate-900/40 p-3 rounded-lg border border-slate-800/60 flex flex-col items-center">
-                        <span class="text-xs text-cyan-300 font-semibold self-start mb-2">Combinatòria:</span>
-                        <div class="text-[10px] font-mono text-slate-400 text-center">
-                            Si <span class="text-white">R</span> té 3 files i <span class="text-white">S</span> en té 4:
-                            <div class="mt-2 text-cyan-400 font-bold text-lg">3 × 4 = 12 files totals</div>
-                        </div>
-                    </div>
+                    <button onclick="runBinaryDemo('diferencia')" class="w-full bg-[#21262d] hover:bg-[#30363d] text-white border border-[#30363d] text-xs py-2 rounded-md font-semibold flex items-center justify-center gap-1 transition-all">
+                        <i data-lucide="play" class="w-3.5 h-3.5"></i> Ejecutar Ejercicio
+                    </button>
                 </div>
+
+                <!-- Ejercicio 6: Producto Cartesiano -->
+                <div class="bg-[#161b22] border border-[#30363d] rounded-xl p-5 flex flex-col justify-between hover:border-[#8b949e]/30 transition-all">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-mono font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-2 py-0.5 rounded">BINARIA - PRODUCTO</span>
+                            <span class="text-xs font-semibold text-[#8b949e]">Ejercicio #6</span>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">Producto Cartesiano</h4>
+                        <p class="text-xs text-[#8b949e] mb-4">Combina todos los libros con todas las categorías de tiendas disponibles para analizar la viabilidad de expansión.</p>
+                        <div class="bg-[#0d1117] p-2.5 rounded border border-[#30363d] mb-4 text-xs font-mono">
+                            <span class="text-cyan-400 font-semibold">Álgebra:</span> \(\text{Llibres} \times \text{Tipus}\)
+                        </div>
+                    </div>
+                    <button onclick="runBinaryDemo('producto')" class="w-full bg-[#21262d] hover:bg-[#30363d] text-white border border-[#30363d] text-xs py-2 rounded-md font-semibold flex items-center justify-center gap-1 transition-all">
+                        <i data-lucide="play" class="w-3.5 h-3.5"></i> Ejecutar Ejercicio
+                    </button>
+                </div>
+
             </div>
         </section>
 
-        <!-- SECCIÓ 3: SIMULADOR INTERACTIU DE CONSULTES -->
-        <section id="simulador" class="mb-20 scroll-mt-6">
-            <div class="bg-gradient-to-r from-indigo-950/30 to-slate-950/80 rounded-3xl border border-slate-800 p-6 sm:p-8">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-                    <div>
-                        <h2 class="text-2xl sm:text-3xl font-bold text-white flex items-center gap-2">
-                            <span class="p-2 bg-pink-500/10 rounded-lg text-pink-400"><i data-lucide="terminal" class="w-6 h-6"></i></span>
-                            Simulador en Temps Real: Àlgebra Relacional
-                        </h2>
-                        <p class="text-slate-400 text-sm mt-2">Doble clic sobre les opcions de filtre o projecció per simular consultes d'àlgebra reals.</p>
-                    </div>
-                    <div class="bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-850 flex items-center gap-2 self-start md:self-auto">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                        <span class="text-xs text-slate-300 font-mono">Motor de Base de Dades Actiu</span>
-                    </div>
+        <!-- SECCIÓN PLAYGROUND / CONSTRUCTOR DE CONSULTAS -->
+        <section id="modulo-playground" class="scroll-mt-20">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-2.5">
+                    <i data-lucide="terminal" class="w-6 h-6 text-sky-400"></i>
+                    <h3 class="text-xl font-bold text-white">Consola de Evaluación Dinámica</h3>
                 </div>
+                <div id="sim-status" class="bg-slate-900 border border-slate-800 px-3 py-1 rounded-full text-[10px] font-mono flex items-center gap-2 text-slate-400">
+                    <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse"></span> CONSOLA ACTIVA
+                </div>
+            </div>
 
-                <!-- Taula Base del Simulador (PUBS / NORTHWIND mix) -->
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    <!-- Esquerra: Selector d'Operacions i controls -->
-                    <div class="lg:col-span-4 flex flex-col gap-6">
-                        <!-- Selector de Base de dades -->
-                        <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-                            <label class="block text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2">1. Selecciona la Taula d'Estudi</label>
+            <!-- Interfaz del Simulador Avanzado -->
+            <div class="bg-[#161b22] border border-[#30363d] rounded-2xl p-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    
+                    <!-- Panel Izquierdo: Configuración de Consulta -->
+                    <div class="lg:col-span-4 space-y-6">
+                        
+                        <!-- 1. Selección de Origen -->
+                        <div class="bg-[#0d1117] border border-[#30363d] p-4 rounded-xl">
+                            <label class="block text-xs font-bold text-[#8b949e] uppercase tracking-wider mb-2">1. Seleccionar Relación</label>
                             <div class="grid grid-cols-2 gap-2">
-                                <button onclick="selectDB('pubs')" id="btn-pubs" class="px-4 py-2 rounded-lg bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 font-semibold text-sm hover:bg-indigo-600/30 transition-all duration-200">
-                                    PUBS (Llibres)
+                                <button onclick="setPlaygroundTable('pubs')" id="btn-play-pubs" class="px-3 py-2 text-xs font-bold rounded-lg border transition-all">
+                                    PUBS (Libros)
                                 </button>
-                                <button onclick="selectDB('northwind')" id="btn-northwind" class="px-4 py-2 rounded-lg bg-slate-950 text-slate-400 border border-slate-800 font-semibold text-sm hover:bg-slate-800 transition-all duration-200">
-                                    NORTHWIND (Empleats)
+                                <button onclick="setPlaygroundTable('northwind')" id="btn-play-northwind" class="px-3 py-2 text-xs font-bold rounded-lg border transition-all">
+                                    NORTHWIND
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Selector d'Operació d'Àlgebra -->
-                        <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-                            <label class="block text-xs font-bold text-violet-400 uppercase tracking-wider mb-3">2. Selecciona l'Operació</label>
-                            
-                            <!-- Opció Selecció -->
-                            <div class="mb-4">
-                                <div class="flex items-center gap-2 mb-2">
-                                    <input type="radio" id="op-select" name="operation" value="select" checked class="accent-indigo-500 w-4 h-4">
-                                    <label for="op-select" class="text-sm font-semibold text-slate-250 cursor-pointer">Selecció (\(\sigma\))</label>
+                        <!-- 2. Operador y Parámetro -->
+                        <div class="bg-[#0d1117] border border-[#30363d] p-4 rounded-xl space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-[#8b949e] uppercase tracking-wider mb-2">2. Operador Algebraico</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button onclick="setPlaygroundOp('select')" id="btn-op-select" class="px-2 py-1.5 text-xs font-mono font-bold rounded border transition-all">
+                                        \(\sigma\) (Sel)
+                                    </button>
+                                    <button onclick="setPlaygroundOp('project')" id="btn-op-project" class="px-2 py-1.5 text-xs font-mono font-bold rounded border transition-all">
+                                        \(\pi\) (Proj)
+                                    </button>
+                                    <button onclick="setPlaygroundOp('rename')" id="btn-op-rename" class="px-2 py-1.5 text-xs font-mono font-bold rounded border transition-all">
+                                        \(\rho\) (Ren)
+                                    </button>
                                 </div>
-                                <select id="select-filter" onchange="runQuery()" class="w-full bg-slate-950 border border-slate-850 rounded-lg p-2.5 text-xs text-slate-300 focus:outline-none focus:border-indigo-500">
-                                    <!-- Dinàmic segons DB -->
-                                </select>
                             </div>
 
-                            <!-- Opció Projecció -->
-                            <div class="mb-2">
-                                <div class="flex items-center gap-2 mb-2">
-                                    <input type="radio" id="op-project" name="operation" value="project" class="accent-indigo-500 w-4 h-4">
-                                    <label for="op-project" class="text-sm font-semibold text-slate-250 cursor-pointer">Projecció (\(\pi\))</label>
-                                </div>
-                                <div class="grid grid-cols-2 gap-2 mt-2" id="project-columns-container">
-                                    <!-- Checkboxes dinàmics -->
-                                </div>
+                            <!-- Opciones dinámicas según operador -->
+                            <div id="playground-params-container" class="pt-2 border-t border-[#30363d]">
+                                <!-- Dinámico vía JavaScript -->
                             </div>
                         </div>
 
-                        <!-- Quadre de Formula Resultant -->
-                        <div class="bg-indigo-950/20 border border-indigo-500/20 p-4 rounded-xl">
-                            <div class="text-xs text-indigo-400 font-bold uppercase tracking-wider mb-1">Fórmula d'Àlgebra Relacional</div>
-                            <div id="algebraic-formula" class="text-sm font-mono text-white py-1">
-                                \(\sigma_{\text{preu} > 20}(\text{Llibres})\)
+                        <!-- Fórmula en LaTeX generada dinámicamente -->
+                        <div class="bg-[#388bfd]/5 border border-[#388bfd]/25 p-4 rounded-xl">
+                            <span class="text-[10px] font-bold text-sky-400 uppercase tracking-wider">Notación Matemática</span>
+                            <div id="playground-latex" class="text-sm font-semibold text-white mt-1 py-1 text-center font-mono">
+                                \(\sigma_{\text{Precio} > 20.00}(\text{Llibres})\)
                             </div>
                         </div>
+
                     </div>
 
-                    <!-- Dreta: Taula Original vs Taula Resultat -->
-                    <div class="lg:col-span-8 flex flex-col gap-6">
-                        <!-- Taula d'Entrada original -->
+                    <!-- Panel Derecho: Tablas Originales y Resultados -->
+                    <div class="lg:col-span-8 space-y-6">
+                        
+                        <!-- Tabla Entrada -->
                         <div>
                             <div class="flex items-center justify-between mb-2">
-                                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
-                                    <i data-lucide="database" class="w-3.5 h-3.5"></i> Taula Base (<span id="source-table-name">Llibres</span>)
+                                <span class="text-xs font-bold text-[#8b949e] uppercase tracking-wider flex items-center gap-1">
+                                    <i data-lucide="database" class="w-3.5 h-3.5"></i> Esquema de Origen: <strong id="play-table-name" class="text-white">PUBS</strong>
                                 </span>
-                                <span class="text-xs text-slate-500 font-mono" id="source-row-count">5 files</span>
+                                <span id="play-row-count" class="text-xs text-[#8b949e] font-mono">5 Registros</span>
                             </div>
-                            <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/50">
+                            <div class="overflow-x-auto rounded-xl border border-[#30363d] bg-[#0d1117]">
                                 <table class="w-full text-left border-collapse text-xs">
                                     <thead>
-                                        <tr class="bg-slate-900 border-b border-slate-850" id="source-table-header">
-                                            <!-- Capçalera dinàmica -->
+                                        <tr class="bg-[#161b22] border-b border-[#30363d]" id="play-src-header">
+                                            <!-- Cabecera dinámica -->
                                         </tr>
                                     </thead>
-                                    <tbody id="source-table-body" class="divide-y divide-slate-850 text-slate-300">
-                                        <!-- Contingut dinàmic -->
+                                    <tbody id="play-src-body" class="divide-y divide-[#30363d] text-[#c9d1d9]">
+                                        <!-- Filas dinámicas -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
-                        <!-- Taula del Resultat filtrat -->
+                        <!-- Tabla Resultado -->
                         <div class="relative">
-                            <div class="absolute inset-0 bg-emerald-500/5 rounded-2xl filter blur-xl pointer-events-none"></div>
-                            <div class="relative bg-slate-950/80 rounded-2xl border border-emerald-500/20 p-4">
+                            <div class="absolute inset-0 bg-sky-500/5 rounded-xl filter blur-xl pointer-events-none"></div>
+                            <div class="relative bg-[#0d1117] border border-[#30363d] rounded-xl p-4">
                                 <div class="flex items-center justify-between mb-3">
-                                    <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
-                                        <i data-lucide="check-circle" class="w-4 h-4"></i> Resultat de la Consulta
+                                    <span class="text-xs font-bold text-sky-450 uppercase tracking-wider flex items-center gap-1.5 text-sky-400">
+                                        <i data-lucide="sparkles" class="w-4 h-4"></i> Relación Resultante Evaluada
                                     </span>
-                                    <span class="text-xs text-emerald-500/80 font-mono bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-900/40" id="result-row-count">
-                                        3 files obtingudes
+                                    <span id="play-res-count" class="text-[10px] text-sky-400 font-mono bg-sky-500/10 px-2.5 py-0.5 rounded border border-sky-500/20">
+                                        3 registros resultantes
                                     </span>
                                 </div>
-                                <div class="overflow-x-auto rounded-xl border border-slate-850 bg-slate-900/60">
+                                <div class="overflow-x-auto rounded-lg border border-[#30363d] bg-[#161b22]/40">
                                     <table class="w-full text-left border-collapse text-xs">
                                         <thead>
-                                            <tr class="bg-slate-950 border-b border-slate-800" id="result-table-header">
-                                                <!-- Capçalera dinàmica -->
+                                            <tr class="bg-[#0d1117] border-b border-[#30363d]" id="play-res-header">
+                                                <!-- Cabecera resultante -->
                                             </tr>
                                         </thead>
-                                        <tbody id="result-table-body" class="divide-y divide-slate-850 text-slate-300">
-                                            <!-- Contingut dinàmic -->
+                                        <tbody id="play-res-body" class="divide-y divide-[#30363d] text-[#c9d1d9]">
+                                            <!-- Filas resultantes -->
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
+
                     </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓ 4: TAULES COMPARATIVES I NOTES DELS EXERCICIS -->
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold text-white mb-6">Resum del Taller 3.2 (Exercicis)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
-                <div class="bg-slate-950/30 border border-slate-850 p-6 rounded-2xl">
-                    <h3 class="text-lg font-bold text-indigo-400 mb-4 flex items-center gap-2">
-                        <i data-lucide="layers" class="w-5 h-5"></i> Bases de Dades del Taller
+        <!-- SECCIÓN DE AUTO-EVALUACIÓN (QUIZ) -->
+        <section class="mt-14 mb-10">
+            <div class="bg-gradient-to-r from-slate-900 to-indigo-950/40 rounded-2xl border border-slate-800 p-6">
+                <div class="max-w-3xl">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2 mb-2">
+                        <i data-lucide="help-circle" class="text-indigo-400 w-5 h-5"></i> ¿Preparado para defender el Taller?
                     </h3>
-                    <ul class="space-y-3 text-slate-300">
-                        <li class="flex gap-2">
-                            <span class="text-indigo-400 font-bold">•</span>
-                            <span><strong>PUBS Database:</strong> Enfocada en la gestió de publicacions de llibres, autors i vendes. S'ha utilitzat per realitzar les operacions unàries de selecció, projecció i reanomenat.</span>
-                        </li>
-                        <li class="flex gap-2">
-                            <span class="text-indigo-400 font-bold">•</span>
-                            <span><strong>NORTHWIND Database:</strong> Enfocada en la gestió de vendes de productes d'una companyia d'importació/exportació. S'ha utilitzat principalment per estructurar operacions de projecció avançades.</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="bg-slate-950/30 border border-slate-850 p-6 rounded-2xl">
-                    <h3 class="text-lg font-bold text-emerald-400 mb-4 flex items-center gap-2">
-                        <i data-lucide="check" class="w-5 h-5"></i> Conclusions del Treball
-                    </h3>
-                    <ul class="space-y-3 text-slate-300">
-                        <li class="flex gap-2">
-                            <span class="text-emerald-400 font-bold">✓</span>
-                            <span>L'àlgebra relacional és el fonament matemàtic que fa possible l'optimització de consultes en SQL actuals.</span>
-                        </li>
-                        <li class="flex gap-2">
-                            <span class="text-emerald-400 font-bold">✓</span>
-                            <span>Les operacions d'unió i diferència requereixen compatibilitat de dominis entre les taules d'origen per garantir la coherència semàntica.</span>
-                        </li>
-                    </ul>
+                    <p class="text-xs text-slate-400 mb-6">Prueba tus conocimientos con esta pregunta de autoevaluación basada en los ejercicios de compatibilidad del informe:</p>
+                    
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-850 space-y-3">
+                        <p class="text-xs font-semibold text-white font-mono">
+                            ¿Cuál de los siguientes pares de relaciones sería viable para realizar una operación de unión (\(\cup\)) o diferencia (\(-\))?
+                        </p>
+                        
+                        <div class="space-y-2 mt-4 text-xs">
+                            <button onclick="checkQuiz(false)" class="w-full text-left p-2.5 rounded bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-300 transition-all flex justify-between items-center">
+                                <span>A. R(ID_Emp, Nom, Ciudad) y S(ID_Emp, Dirección)</span>
+                                <i data-lucide="circle" class="w-4 h-4 text-slate-500"></i>
+                            </button>
+                            <button onclick="checkQuiz(true)" class="w-full text-left p-2.5 rounded bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-300 transition-all flex justify-between items-center">
+                                <span>B. R(ID_Emp, Nom, Ciudad) y S(Cod_Emp, Nombre_Completo, Residencia) con dominios compatibles.</span>
+                                <i data-lucide="circle" class="w-4 h-4 text-slate-500"></i>
+                            </button>
+                            <button onclick="checkQuiz(false)" class="w-full text-left p-2.5 rounded bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-300 transition-all flex justify-between items-center">
+                                <span>C. R(ID_Emp, Nom) y S(Cod_Producto, Nom_Producto, Cantidad)</span>
+                                <i data-lucide="circle" class="w-4 h-4 text-slate-500"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="quiz-feedback" class="mt-4 text-xs font-semibold hidden"></div>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Footer de la Pàgina -->
-    <footer class="border-t border-slate-800 bg-slate-950 py-12 px-4 text-center">
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-sm text-slate-500">
+    <!-- Footer estilo GitHub -->
+    <footer class="bg-[#161b22] border-t border-[#30363d] py-10 px-6 mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-[#8b949e]">
             <div class="flex items-center gap-2">
-                <i data-lucide="github" class="w-5 h-5 text-slate-400"></i>
-                <span>Dissenyat per a repositoris de GitHub • 2026</span>
+                <i data-lucide="github" class="w-4 h-4"></i>
+                <span>Taller 3.2 • Laboratorio Docente</span>
             </div>
-            <div>
-                Àlgebra Relacional — Taller 3.2 — Enginyeria de Sistemes (UAC)
+            <div class="flex gap-4">
+                <span>Facultad de Ingeniería y Arquitectura (UAC)</span>
+                <span>•</span>
+                <span>Cusco, 2026</span>
             </div>
         </div>
     </footer>
 
+    <!-- LOGICA DEL SIMULADOR EN JS -->
     <script>
-        // Inicialització d'icones Lucide
+        // Inicializar iconos Lucide
         lucide.createIcons();
 
-        // Conjunts de dades simulats (PUBS i NORTHWIND)
-        const databases = {
+        // Base de Datos Estática de Prueba (Alineada al taller original)
+        const datasets = {
             pubs: {
-                name: "Llibres (PUBS)",
-                columns: ["ID", "Títol", "Preu", "Categoria"],
+                name: "Titles (PUBS)",
+                columns: ["ID_Libro", "Títol", "Preu", "Categoria"],
                 data: [
-                    { "ID": "B01", "Títol": "Cooking with SQL", "Preu": 19.99, "Categoria": "Informàtica" },
-                    { "ID": "B02", "Títol": "Database Master", "Preu": 35.50, "Categoria": "Informàtica" },
-                    { "ID": "B03", "Títol": "Secrets of Silicon Valley", "Preu": 14.90, "Categoria": "Negocis" },
-                    { "ID": "B04", "Títol": "Advanced Relational Logic", "Preu": 42.00, "Categoria": "Ciència" },
-                    { "ID": "B05", "Títol": "The Art of Querying", "Preu": 25.00, "Categoria": "Informàtica" }
+                    { "ID_Libro": "B01", "Títol": "Cooking with SQL", "Preu": 19.99, "Categoria": "Informàtica" },
+                    { "ID_Libro": "B02", "Títol": "Database Master", "Preu": 35.50, "Categoria": "Informàtica" },
+                    { "ID_Libro": "B03", "Títol": "Secrets of Silicon Valley", "Preu": 14.90, "Categoria": "Negocis" },
+                    { "ID_Libro": "B04", "Títol": "Advanced Relational Logic", "Preu": 42.00, "Categoria": "Ciència" },
+                    { "ID_Libro": "B05", "Títol": "The Art of Querying", "Preu": 25.00, "Categoria": "Informàtica" }
                 ],
                 filters: [
-                    { text: "Preu > 20.00", formula: "\\sigma_{\\text{Preu} > 20.00}(\\text{Llibres})", fn: item => item.Preu > 20 },
-                    { text: "Categoria = 'Informàtica'", formula: "\\sigma_{\\text{Categoria} = 'Informàtica'}(\\text{Llibres})", fn: item => item.Categoria === 'Informàtica' },
-                    { text: "Preu < 30.00", formula: "\\sigma_{\\text{Preu} < 30.00}(\\text{Llibres})", fn: item => item.Preu < 30 }
+                    { label: "Preu > 20.00", formula: "\\sigma_{\\text{Preu} > 20.00}(\\text{Titles})", fn: r => r.Preu > 20 },
+                    { label: "Categoria = 'Informàtica'", formula: "\\sigma_{\\text{Categoria} = 'Informàtica'}(\\text{Titles})", fn: r => r.Categoria === 'Informàtica' },
+                    { label: "Preu < 30.00", formula: "\\sigma_{\\text{Preu} < 30.00}(\\text{Titles})", fn: r => r.Preu < 30 }
                 ]
             },
             northwind: {
-                name: "Empleats (NORTHWIND)",
+                name: "Employees (NORTHWIND)",
                 columns: ["ID_Emp", "Nom", "Ciutat", "Càrrec"],
                 data: [
                     { "ID_Emp": 1, "Nom": "Nancy Davolio", "Ciutat": "Seattle", "Càrrec": "Vendes" },
@@ -465,195 +402,397 @@
                     { "ID_Emp": 5, "Nom": "Steven Buchanan", "Ciutat": "London", "Càrrec": "Manager" }
                 ],
                 filters: [
-                    { text: "Ciutat = 'London'", formula: "\\sigma_{\\text{Ciutat} = 'London'}(\\text{Empleats})", fn: item => item.Ciutat === 'London' },
-                    { text: "Càrrec = 'Vendes'", formula: "\\sigma_{\\text{Càrrec} = 'Vendes'}(\\text{Empleats})", fn: item => item.Càrrec === 'Vendes' },
-                    { text: "ID_Emp >= 3", formula: "\\sigma_{\\text{ID\\_Emp} \\ge 3}(\\text{Empleats})", fn: item => item.ID_Emp >= 3 }
+                    { label: "Ciutat = 'London'", formula: "\\sigma_{\\text{Ciutat} = 'London'}(\\text{Employees})", fn: r => r.Ciutat === 'London' },
+                    { label: "Càrrec = 'Vendes'", formula: "\\sigma_{\\text{Càrrec} = 'Vendes'}(\\text{Employees})", fn: r => r.Càrrec === 'Vendes' },
+                    { label: "ID_Emp >= 3", formula: "\\sigma_{\\text{ID\\_Emp} \\ge 3}(\\text{Employees})", fn: r => r.ID_Emp >= 3 }
                 ]
             }
         };
 
-        let currentDB = 'pubs';
+        // Estado Global del Playground
+        let playState = {
+            db: 'pubs',
+            op: 'select',
+            filterIndex: 0,
+            projectCols: [],
+            renameVal: 'Escriptors'
+        };
 
-        // Escoltador de canvis d'operació
-        document.querySelectorAll('input[name="operation"]').forEach(radio => {
-            radio.addEventListener('change', () => runQuery());
-        });
+        // Cambiar la base de datos del constructor
+        function setPlaygroundTable(dbName) {
+            playState.db = dbName;
+            playState.projectCols = [...datasets[dbName].columns]; // Resetear columnas elegidas
 
-        // Funció per seleccionar la base de dades
-        function selectDB(dbName) {
-            currentDB = dbName;
+            // Actualizar diseño de botones de selección de BD
+            document.getElementById('btn-play-pubs').className = dbName === 'pubs'
+                ? 'px-3 py-2 text-xs font-bold rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/30 w-full'
+                : 'px-3 py-2 text-xs font-bold rounded-lg bg-[#21262d] text-[#c9d1d9] border border-[#30363d] w-full hover:bg-[#30363d]';
+
+            document.getElementById('btn-play-northwind').className = dbName === 'northwind'
+                ? 'px-3 py-2 text-xs font-bold rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/30 w-full'
+                : 'px-3 py-2 text-xs font-bold rounded-lg bg-[#21262d] text-[#c9d1d9] border border-[#30363d] w-full hover:bg-[#30363d]';
+
+            document.getElementById('play-table-name').textContent = datasets[dbName].name;
             
-            // Actualitzar estils dels botons
-            document.getElementById('btn-pubs').className = dbName === 'pubs' 
-                ? 'px-4 py-2 rounded-lg bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 font-semibold text-sm hover:bg-indigo-600/30 transition-all'
-                : 'px-4 py-2 rounded-lg bg-slate-950 text-slate-400 border border-slate-800 font-semibold text-sm hover:bg-slate-800 transition-all';
-            
-            document.getElementById('btn-northwind').className = dbName === 'northwind' 
-                ? 'px-4 py-2 rounded-lg bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 font-semibold text-sm hover:bg-indigo-600/30 transition-all'
-                : 'px-4 py-2 rounded-lg bg-slate-950 text-slate-400 border border-slate-800 font-semibold text-sm hover:bg-slate-800 transition-all';
-
-            // Actualitzar el títol d'origen
-            document.getElementById('source-table-name').textContent = databases[dbName].name;
-
-            // Renderitzar els filtres disponibles
-            const filterSelect = document.getElementById('select-filter');
-            filterSelect.innerHTML = '';
-            databases[dbName].filters.forEach((filter, index) => {
-                const opt = document.createElement('option');
-                opt.value = index;
-                opt.textContent = filter.text;
-                filterSelect.appendChild(opt);
-            });
-
-            // Generar llistat de columnes de projecció
-            const projContainer = document.getElementById('project-columns-container');
-            projContainer.innerHTML = '';
-            databases[dbName].columns.forEach(col => {
-                const label = document.createElement('label');
-                label.className = "flex items-center gap-2 bg-slate-950/60 hover:bg-slate-950 p-2 rounded border border-slate-850 cursor-pointer text-xs";
-                
-                const cb = document.createElement('input');
-                cb.type = 'checkbox';
-                cb.value = col;
-                cb.checked = true;
-                cb.className = "accent-violet-500 w-3.5 h-3.5";
-                cb.onchange = () => {
-                    document.getElementById('op-project').checked = true;
-                    runQuery();
-                };
-
-                label.appendChild(cb);
-                label.appendChild(document.createTextNode(col));
-                projContainer.appendChild(label);
-            });
-
-            renderSourceTable();
-            runQuery();
+            // Re-renderizar parámetros dinámicos y evaluar
+            renderParamsUI();
+            renderTables();
         }
 
-        // Dibuixar la taula font
-        function renderSourceTable() {
-            const db = databases[currentDB];
-            document.getElementById('source-row-count').textContent = `${db.data.length} files`;
-            
-            // Header
-            const headerTr = document.getElementById('source-table-header');
-            headerTr.innerHTML = '';
-            db.columns.forEach(col => {
-                const th = document.createElement('th');
-                th.className = "px-4 py-2.5 font-semibold text-slate-400";
-                th.textContent = col;
-                headerTr.appendChild(th);
+        // Cambiar el operador del constructor
+        function setPlaygroundOp(opName) {
+            playState.op = opName;
+
+            const operators = ['select', 'project', 'rename'];
+            operators.forEach(o => {
+                const btn = document.getElementById(`btn-op-${o}`);
+                if (o === opName) {
+                    btn.className = 'px-2 py-1.5 text-xs font-mono font-bold rounded bg-violet-500/10 text-violet-400 border border-violet-500/30 text-center w-full';
+                } else {
+                    btn.className = 'px-2 py-1.5 text-xs font-mono font-bold rounded bg-[#21262d] text-[#c9d1d9] border border-[#30363d] text-center w-full hover:bg-[#30363d]';
+                }
             });
 
-            // Body
-            const tbody = document.getElementById('source-table-body');
-            tbody.innerHTML = '';
+            renderParamsUI();
+            renderTables();
+        }
+
+        // Renderizar dinámicamente el panel de parámetros
+        function renderParamsUI() {
+            const container = document.getElementById('playground-params-container');
+            container.innerHTML = '';
+            const db = datasets[playState.db];
+
+            if (playState.op === 'select') {
+                const label = document.createElement('label');
+                label.className = "block text-[11px] font-semibold text-[#8b949e] mb-2";
+                label.textContent = "Filtrar por Condición:";
+                container.appendChild(label);
+
+                const select = document.createElement('select');
+                select.className = "w-full bg-[#161b22] border border-[#30363d] rounded p-1.5 text-xs text-[#c9d1d9] focus:outline-none focus:border-sky-500";
+                select.onchange = (e) => {
+                    playState.filterIndex = parseInt(e.target.value);
+                    renderTables();
+                };
+
+                db.filters.forEach((f, idx) => {
+                    const opt = document.createElement('option');
+                    opt.value = idx;
+                    opt.textContent = f.label;
+                    if (playState.filterIndex === idx) opt.selected = true;
+                    select.appendChild(opt);
+                });
+                container.appendChild(select);
+
+            } else if (playState.op === 'project') {
+                const label = document.createElement('label');
+                label.className = "block text-[11px] font-semibold text-[#8b949e] mb-2";
+                label.textContent = "Elegir columnas de salida:";
+                container.appendChild(label);
+
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-2 gap-2";
+
+                db.columns.forEach(col => {
+                    const lbl = document.createElement('label');
+                    lbl.className = "flex items-center gap-1.5 bg-[#161b22] border border-[#30363d] px-2 py-1.5 rounded text-xs cursor-pointer hover:bg-[#30363d] text-slate-300";
+
+                    const cb = document.createElement('input');
+                    cb.type = 'checkbox';
+                    cb.value = col;
+                    cb.checked = playState.projectCols.includes(col);
+                    cb.className = "accent-sky-500 w-3.5 h-3.5";
+                    cb.onchange = () => {
+                        if (cb.checked) {
+                            if (!playState.projectCols.includes(col)) playState.projectCols.push(col);
+                        } else {
+                            playState.projectCols = playState.projectCols.filter(c => c !== col);
+                        }
+                        renderTables();
+                    };
+
+                    lbl.appendChild(cb);
+                    lbl.appendChild(document.createTextNode(col));
+                    grid.appendChild(lbl);
+                });
+
+                container.appendChild(grid);
+
+            } else if (playState.op === 'rename') {
+                const label = document.createElement('label');
+                label.className = "block text-[11px] font-semibold text-[#8b949e] mb-2";
+                label.textContent = "Escribir Nuevo Nombre de Relación:";
+                container.appendChild(label);
+
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = "w-full bg-[#161b22] border border-[#30363d] rounded px-3 py-1.5 text-xs text-[#c9d1d9] focus:outline-none focus:border-sky-500 font-mono";
+                input.value = playState.renameVal;
+                input.oninput = (e) => {
+                    playState.renameVal = e.target.value || 'NovaRelacio';
+                    renderTables();
+                };
+
+                container.appendChild(input);
+            }
+        }
+
+        // Renderizar Tablas Base y Resultados Calculados en el Constructor
+        function renderTables() {
+            const db = datasets[playState.db];
+            
+            // --- TABLA DE ORIGEN ---
+            document.getElementById('play-row-count').textContent = `${db.data.length} registros`;
+            
+            const srcHeader = document.getElementById('play-src-header');
+            srcHeader.innerHTML = '';
+            db.columns.forEach(col => {
+                const th = document.createElement('th');
+                th.className = "px-3 py-2 font-semibold text-[#8b949e]";
+                th.textContent = col;
+                srcHeader.appendChild(th);
+            });
+
+            const srcBody = document.getElementById('play-src-body');
+            srcBody.innerHTML = '';
             db.data.forEach(row => {
                 const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-900/40 transition-colors";
+                tr.className = "hover:bg-[#161b22]/50 transition-colors";
                 db.columns.forEach(col => {
                     const td = document.createElement('td');
-                    td.className = "px-4 py-2";
+                    td.className = "px-3 py-1.5 border-b border-[#30363d]";
                     td.textContent = row[col];
                     tr.appendChild(td);
                 });
-                tbody.appendChild(tr);
+                srcBody.appendChild(tr);
             });
-        }
 
-        // Executar la query simulada
-        function runQuery() {
-            const db = databases[currentDB];
-            const activeOp = document.querySelector('input[name="operation"]:checked').value;
-            const formulaDiv = document.getElementById('algebraic-formula');
-
+            // --- TABLA DE RESULTADO ---
             let resultData = [];
             let resultColumns = [];
+            const formulaDiv = document.getElementById('playground-latex');
 
-            if (activeOp === 'select') {
-                const filterIndex = document.getElementById('select-filter').value;
-                const filterObj = db.filters[filterIndex] || db.filters[0];
-                
-                resultData = db.data.filter(filterObj.fn);
+            if (playState.op === 'select') {
+                const filter = db.filters[playState.filterIndex] || db.filters[0];
+                resultData = db.data.filter(filter.fn);
                 resultColumns = [...db.columns];
-
-                formulaDiv.innerHTML = `$$${filterObj.formula}$$`;
-            } else if (activeOp === 'project') {
-                // Obtenir columnes seleccionades
-                const checkboxes = document.querySelectorAll('#project-columns-container input:checked');
-                const selectedCols = Array.from(checkboxes).map(cb => cb.value);
-
-                if (selectedCols.length === 0) {
-                    resultData = [];
-                    resultColumns = [];
-                } else {
-                    resultColumns = selectedCols;
-                    // Projectar dades eliminant duplicats en js
-                    const seen = new Set();
-                    db.data.forEach(row => {
-                        const projectedRow = {};
-                        selectedCols.forEach(col => {
-                            projectedRow[col] = row[col];
-                        });
-                        const strRepresentation = JSON.stringify(projectedRow);
-                        if (!seen.has(strRepresentation)) {
-                            seen.add(strRepresentation);
-                            resultData.push(projectedRow);
-                        }
+                formulaDiv.innerHTML = `$$${filter.formula}$$`;
+            } else if (playState.op === 'project') {
+                resultColumns = playState.projectCols;
+                
+                // Realizar proyección y remover duplicados
+                const seen = new Set();
+                db.data.forEach(row => {
+                    const projected = {};
+                    resultColumns.forEach(col => {
+                        projected[col] = row[col];
                     });
-                }
-
-                const colsFormula = selectedCols.join(', ');
-                const tableName = currentDB === 'pubs' ? '\\text{Llibres}' : '\\text{Empleats}';
-                formulaDiv.innerHTML = `$$\\pi_{${colsFormula}}(${tableName})$$`;
+                    const hash = JSON.stringify(projected);
+                    if (!seen.has(hash)) {
+                        seen.add(hash);
+                        resultData.push(projected);
+                    }
+                });
+                
+                const colString = resultColumns.join(', ');
+                const cleanTableName = playState.db === 'pubs' ? '\\text{Titles}' : '\\text{Employees}';
+                formulaDiv.innerHTML = `$$\\pi_{${colString || '\\emptyset'}}(${cleanTableName})$$`;
+            } else if (playState.op === 'rename') {
+                resultData = [...db.data];
+                resultColumns = [...db.columns];
+                formulaDiv.innerHTML = `$$\\rho_{\\text{${playState.renameVal}}}(\\text{${playState.db === 'pubs' ? 'Titles' : 'Employees'}})$$`;
             }
 
-            // Actualitzar MathJax per processar el contingut generat
-            if (window.MathJax) {
-                MathJax.typesetPromise();
-            }
+            // Actualizar contador del resultado
+            document.getElementById('play-res-count').textContent = `${resultData.length} registros`;
 
-            // Renderitzar Taula del Resultat
-            document.getElementById('result-row-count').textContent = `${resultData.length} files obtingudes`;
-            
-            const resHeader = document.getElementById('result-table-header');
+            // Renderizar cabecera de resultado
+            const resHeader = document.getElementById('play-res-header');
             resHeader.innerHTML = '';
             resultColumns.forEach(col => {
                 const th = document.createElement('th');
-                th.className = "px-4 py-2.5 font-semibold text-emerald-400 bg-emerald-950/10";
+                th.className = "px-3 py-2 font-semibold text-sky-450 bg-[#388bfd]/10 text-sky-300";
                 th.textContent = col;
                 resHeader.appendChild(th);
             });
 
-            const resBody = document.getElementById('result-table-body');
+            // Renderizar filas del resultado
+            const resBody = document.getElementById('play-res-body');
             resBody.innerHTML = '';
-            if (resultData.length === 0) {
-                const tr = document.createElement('tr');
-                const td = document.createElement('td');
-                td.setAttribute('colspan', '100%');
-                td.className = "px-4 py-8 text-center text-slate-500 italic";
-                td.textContent = "Cap resultat coincideix amb la consulta.";
-                tr.appendChild(td);
-                resBody.appendChild(tr);
+            if (resultColumns.length === 0 || resultData.length === 0) {
+                resBody.innerHTML = `<tr><td colspan="100%" class="px-4 py-6 text-center text-[#8b949e] italic">La consulta no ha retornado columnas o registros válidos.</td></tr>`;
             } else {
                 resultData.forEach(row => {
                     const tr = document.createElement('tr');
-                    tr.className = "hover:bg-slate-900/80 transition-colors";
+                    tr.className = "hover:bg-[#161b22]/50 transition-colors";
                     resultColumns.forEach(col => {
                         const td = document.createElement('td');
-                        td.className = "px-4 py-2 border-b border-slate-850";
+                        td.className = "px-3 py-1.5 border-b border-[#30363d]";
                         td.textContent = row[col];
                         tr.appendChild(td);
                     });
                     resBody.appendChild(tr);
                 });
             }
+
+            // Actualizar renderizado LaTeX de MathJax
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
         }
 
-        // Carrega inicial
+        // Cargar ejercicio específico del taller en el constructor
+        function loadExercise(dbName, operation, param) {
+            playState.db = dbName;
+            playState.op = operation;
+
+            if (operation === 'select') {
+                playState.filterIndex = param;
+            } else if (operation === 'project') {
+                playState.projectCols = [...param];
+            } else if (operation === 'rename') {
+                playState.renameVal = param;
+            }
+
+            setPlaygroundTable(dbName);
+            setPlaygroundOp(operation);
+
+            // Scroll automático al módulo interactivo
+            document.getElementById('modulo-playground').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Simular ejecución binaria (Unión, Diferencia, Producto)
+        function runBinaryDemo(type) {
+            const tableA = [
+                { "ID": 1, "Nom": "Nancy", "Ciutat": "Seattle" },
+                { "ID": 2, "Nom": "Andrew", "Ciutat": "Tacoma" },
+                { "ID": 3, "Nom": "Janet", "Ciutat": "London" }
+            ];
+
+            const tableB = [
+                { "ID": 3, "Nom": "Janet", "Ciutat": "London" },
+                { "ID": 4, "Nom": "Steven", "Ciutat": "London" }
+            ];
+
+            const columns = ["ID", "Nom", "Ciutat"];
+            let resultData = [];
+            let resultColumns = [...columns];
+            let formulaStr = '';
+
+            if (type === 'union') {
+                // Combinar sin duplicados
+                const seen = new Set();
+                [...tableA, ...tableB].forEach(row => {
+                    const hash = JSON.stringify(row);
+                    if (!seen.has(hash)) {
+                        seen.add(hash);
+                        resultData.push(row);
+                    }
+                });
+                formulaStr = '\\text{SedeA} \\cup \\text{SedeB}';
+            } else if (type === 'diferencia') {
+                // Elementos en A pero no en B
+                const bHashes = new Set(tableB.map(r => JSON.stringify(r)));
+                tableA.forEach(row => {
+                    if (!bHashes.has(JSON.stringify(row))) {
+                        resultData.push(row);
+                    }
+                });
+                formulaStr = '\\text{SedeA} - \\text{SedeB}';
+            } else if (type === 'producto') {
+                // Producto cartesiano simple
+                const simplifA = [{ "Libro": "SQL" }, { "Libro": "NoSQL" }];
+                const simplifB = [{ "Categoria": "Premium" }, { "Categoria": "Normal" }];
+                
+                resultColumns = ["Libro", "Categoria"];
+                simplifA.forEach(a => {
+                    simplifB.forEach(b => {
+                        resultData.push({ "Libro": a.Libro, "Categoria": b.Categoria });
+                    });
+                });
+                formulaStr = '\\text{Llibres} \\times \\text{Tipus}';
+            }
+
+            // Inyectar datos en la consola para reflejar la operación binaria
+            document.getElementById('play-table-name').textContent = "Relación Binaria Demo";
+            document.getElementById('play-row-count').textContent = `${tableA.length} registros`;
+
+            // Dibujar cabecera origen con tabla simplificada
+            const srcHeader = document.getElementById('play-src-header');
+            srcHeader.innerHTML = '';
+            columns.forEach(col => {
+                const th = document.createElement('th');
+                th.className = "px-3 py-2 font-semibold text-[#8b949e]";
+                th.textContent = col;
+                srcHeader.appendChild(th);
+            });
+
+            // Dibujar filas de origen (SedeA)
+            const srcBody = document.getElementById('play-src-body');
+            srcBody.innerHTML = '';
+            tableA.forEach(row => {
+                const tr = document.createElement('tr');
+                columns.forEach(col => {
+                    const td = document.createElement('td');
+                    td.className = "px-3 py-1.5 border-b border-[#30363d]";
+                    td.textContent = row[col];
+                    tr.appendChild(td);
+                });
+                srcBody.appendChild(tr);
+            });
+
+            // Dibujar resultado binario
+            document.getElementById('play-res-count').textContent = `${resultData.length} registros resultantes`;
+            
+            const resHeader = document.getElementById('play-res-header');
+            resHeader.innerHTML = '';
+            resultColumns.forEach(col => {
+                const th = document.createElement('th');
+                th.className = "px-3 py-2 font-semibold text-emerald-400 bg-emerald-950/20";
+                th.textContent = col;
+                resHeader.appendChild(th);
+            });
+
+            const resBody = document.getElementById('play-res-body');
+            resBody.innerHTML = '';
+            resultData.forEach(row => {
+                const tr = document.createElement('tr');
+                resultColumns.forEach(col => {
+                    const td = document.createElement('td');
+                    td.className = "px-3 py-1.5 border-b border-[#30363d]";
+                    td.textContent = row[col];
+                    tr.appendChild(td);
+                });
+                resBody.appendChild(tr);
+            });
+
+            document.getElementById('playground-latex').innerHTML = `$$${formulaStr}$$`;
+
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+
+            document.getElementById('modulo-playground').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Evaluación de Quiz
+        function checkQuiz(isCorrect) {
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.classList.remove('hidden', 'text-emerald-400', 'text-rose-400');
+            
+            if (isCorrect) {
+                feedback.classList.add('text-emerald-400');
+                feedback.innerHTML = "¡Correcto! En el álgebra relacional formal, dos relaciones son compatibles con la unión si tienen el mismo número de atributos y los tipos de datos (dominios) correspondientes coinciden, independientemente de que se llamen de distinta forma.";
+            } else {
+                feedback.classList.add('text-rose-400');
+                feedback.innerHTML = "Incorrecto. Recuerda que para realizar una unión o diferencia, las tablas deben tener exactamente la misma cantidad de atributos (aridad) y compatibilidad semántica en sus dominios.";
+            }
+        }
+
+        // Carga Inicial del Playground
         window.onload = function() {
-            selectDB('pubs');
+            setPlaygroundTable('pubs');
         };
     </script>
 </body>
