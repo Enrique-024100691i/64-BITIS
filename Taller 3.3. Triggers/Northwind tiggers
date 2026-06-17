@@ -1,0 +1,195 @@
+--1. trigger de auditoría de eliminación de empleados
+-- creación de la tabla de auditoría
+if object_id('dbo.auditoria_empleados', 'u') is not null
+    drop table dbo.auditoria_empleados;
+go
+
+create table dbo.auditoria_empleados (
+    id_auditoria int identity(1,1) primary key,
+    employeeid int,
+    lastname nvarchar(20),
+    firstname nvarchar(10),
+    fecha_eliminacion datetime default getdate(),
+    usuario nvarchar(100) default suser_sname()
+);
+go
+
+-- trigger en minúsculas
+create trigger tr_auditoria_eliminar_empleado
+on employees
+after delete
+as
+begin
+    set nocount on;
+    insert into dbo.auditoria_empleados (employeeid, lastname, firstname)
+    select employeeid, lastname, firstname
+    from deleted;
+end;
+go
+
+-- paso 1: insertar un empleado de prueba en la tabla original
+insert into employees (lastname, firstname, birthdate, hiredate)
+values ('perez', 'juan', '1990-01-01', getdate());
+
+-- paso 2: eliminar al empleado de prueba para disparar el trigger
+delete from employees 
+where lastname = 'perez' and firstname = 'juan';
+
+-- paso 3: verificar que el trigger guardó los datos en la tabla de auditoría
+select id_auditoria, employeeid, lastname, firstname, fecha_eliminacion, usuario 
+from dbo.auditoria_empleados;
+
+--2. trigger de control de stock automático
+create trigger tr_actualizar_stock_insertar
+on "order details"
+after insert
+as
+begin
+    set nocount on;
+    update p
+    set p.unitsinstock = p.unitsinstock - i.quantity
+    from products p
+    inner join inserted i on p.productid = i.productid;
+end;
+go
+
+-- paso 1: revisar cuántas unidades hay en stock actualmente del producto 1 (chai)
+select productid, productname, unitsinstock 
+from products 
+where productid = 1;
+
+-- paso 2: insertar un nuevo detalle de orden (insertamos 5 unidades del producto 1 en la orden 10248)
+insert into "order details" (orderid, productid, unitprice, quantity, discount)
+values (10248, 1, 18.00, 5, 0.00);
+
+-- paso 3: comprobar que el stock del producto 1 disminuyó automáticamente en 5 unidades
+select productid, productname, unitsinstock 
+from products 
+where productid = 1;
+
+--3. trigger de validación de precios (regla de negocio)
+create trigger tr_validar_precio_producto
+on products
+instead of insert, update
+as
+begin
+    set nocount on;
+    if exists (select 1 from inserted where unitprice <= 0)
+    begin
+        raiserror('error: el precio unitario del producto debe ser mayor a cero.', 16, 1);
+        rollback transaction;
+    end
+    else
+    begin
+        -- si la acción es una actualización
+        if exists (select 1 from deleted)
+        begin
+            update p
+            set p.productname = i.productname,
+                p.supplierid = i.supplierid,
+                p.categoryid = i.categoryid,
+                p.quantityperunit = i.quantityperunit,
+                p.unitprice = i.unitprice,
+                p.unitsinstock = i.unitsinstock,
+                p.unitsonorder = i.unitsonorder,
+                p.reorderlevel = i.reorderlevel,
+                p.discontinued = i.discontinued
+            from products p
+            inner join inserted i on p.productid = i.productid;
+        end
+        -- si la acción es una inserción pura
+        else
+        begin
+            insert into products (productname, supplierid, categoryid, quantityperunit, unitprice, unitsinstock, unitsonorder, reorderlevel, discontinued)
+            select productname, supplierid, categoryid, quantityperunit, unitprice, unitsinstock, unitsonorder, reorderlevel, discontinued
+            from inserted;
+        end
+    end
+end;
+go
+
+-- prueba a: intentar actualizar un producto con un precio inválido (menor o igual a cero)
+-- nota: este comando debe fallar a propósito y mostrar tu mensaje de error en la consola
+update products
+set unitprice = -10.50
+where productid = 2;
+
+
+-- prueba b: realizar una inserción con un precio correcto (mayor a cero) para ver que sí lo permite
+insert into products (productname, supplierid, categoryid, quantityperunit, unitprice, unitsinstock, unitsonorder, reorderlevel, discontinued)
+values ('producto de prueba', 1, 1, '10 cajas', 25.00, 100, 0, 10, 0);
+
+-- verificar que el producto correcto sí se guardó
+select productid, productname, unitprice 
+from products 
+where productname = 'producto de prueba';
+--4.trigger para mantener histórico de cambios de precio
+-- creación de la tabla de histórico de precios
+if object_id('dbo.historico_precios', 'u') is not null
+    drop table dbo.historico_precios;
+go
+
+create table dbo.historico_precios (
+    id_historico int identity(1,1) primary key,
+    productid int,
+    precio_anterior money,
+    precio_nuevo money,
+    fecha_cambio datetime default getdate()
+);
+go
+
+-- trigger 
+create trigger tr_historico_cambio_precio
+on products
+after update
+as
+begin
+    set nocount on;
+    if update(unitprice)
+    begin
+        insert into dbo.historico_precios (productid, precio_anterior, precio_nuevo)
+        select i.productid, d.unitprice, i.unitprice
+        from inserted i
+        inner join deleted d on i.productid = d.productid
+        where i.unitprice <> d.unitprice;
+    end;
+end;
+go
+
+-- modificamos el precio de un producto existente de la base de datos
+update products
+set unitprice = 25.00
+where productid = 3;
+
+-- comando para comprobar que el cambio quedó registrado en el historial
+select * from dbo.historico_precios;
+
+-- 5. Trigger de Descuento Automático por Volumen de Compra
+create trigger tr_descuento_automatico_volumen
+on "order details"
+after insert
+as
+begin
+    set nocount on;
+    
+    -- si la cantidad es de 50 o más unidades, actualiza el descuento al 15%
+    update od
+    set od.discount = 0.15
+    from "order details" od
+    inner join inserted i on od.orderid = i.orderid and od.productid = i.productid
+    where i.quantity >= 50;
+end;
+go
+
+-- 1. insertamos un producto con una cantidad pequeña (10 unidades) -> descuento debe ser 0
+insert into "order details" (orderid, productid, unitprice, quantity, discount)
+values (10249, 2, 19.00, 10, 0.00);
+
+-- 2. insertamos un producto con volumen alto (60 unidades) -> el trigger cambiará el descuento a 0.15 de forma automática
+insert into "order details" (orderid, productid, unitprice, quantity, discount)
+values (10249, 3, 10.00, 60, 0.00);
+
+-- 3. verificamos los resultados en la orden 10249
+select orderid, productid, quantity, discount 
+from "order details" 
+where orderid = 10249;
