@@ -1,0 +1,6 @@
+{
+  "name": "Intrasev Motors ERP",
+  "description": "Sistema ERP avanzado para la gestión de inventario y repuestos automotrices de alto rendimiento.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
